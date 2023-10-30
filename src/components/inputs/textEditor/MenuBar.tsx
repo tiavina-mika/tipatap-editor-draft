@@ -1,5 +1,19 @@
+/** @jsxRuntime classic /
+/* @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { jsx } from "@emotion/react";
+import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
 
+const classes = {
+  button: (isActive: boolean) => ({
+    borderRadius: 0,
+    border: "none",
+    cursor: "pointer",
+    height: 24,
+    width: 24
+  })
+};
 type Props = {
   editor: Editor;
 };
@@ -9,28 +23,28 @@ const MenuBar = ({ editor }: Props) => {
   }
 
   return (
-    <>
-      <button
+    <div className="flex">
+      <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={editor.isActive("bold") ? "is-active" : ""}
+        css={classes.button(editor.isActive("bold"))}
       >
-        bold
-      </button>
-      <button
+        <img alt="bold" src="/icons/bold.svg" />
+      </IconButton>
+      <IconButton
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={editor.isActive("italic") ? "is-active" : ""}
+        css={classes.button(editor.isActive("italic"))}
       >
-        italic
-      </button>
-      <button
+        <img alt="italic" src="/icons/italic.svg" />
+      </IconButton>
+      <IconButton
         onClick={() => editor.chain().focus().toggleStrike().run()}
         disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={editor.isActive("strike") ? "is-active" : ""}
+        css={classes.button(editor.isActive("strike"))}
       >
-        strike
-      </button>
+        <img alt="strike" src="/icons/strike.svg" />
+      </IconButton>
       <button
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}
@@ -136,7 +150,7 @@ const MenuBar = ({ editor }: Props) => {
       >
         purple
       </button>
-    </>
+    </div>
   );
 };
 
