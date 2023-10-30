@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div>
       <div css={{ paddingLeft: 12, paddingRight: 12 }}>
-        <TextEditor />
+        <TextEditor placeholder="Provide as much information as possible. This field has only one limit, yours." />
       </div>
     </div>
   );

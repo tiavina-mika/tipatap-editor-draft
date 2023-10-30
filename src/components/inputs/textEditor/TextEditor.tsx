@@ -24,18 +24,20 @@ const classes = {
     border: "1px solid " + theme.palette.grey[800],
     padding: 6,
     "& p.is-editor-empty:first-child::before": {
-      color: "#adb5bd",
       content: "attr(data-placeholder)",
       float: "left",
       height: 0,
-      pointerEvents: "none"
+      pointerEvents: "none",
+      color: theme.palette.grey[300],
+      fontFamily: "Product Sans Regular",
+      fontSize: 14,
+      fontStyle: "normal",
+      fontWeight: 400,
+      lineHeight: "157.143%" /* 157.143% */
     }
   })
 };
 const extensions = [
-  Placeholder.configure({
-    placeholder: "Write something"
-  }),
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
 
@@ -53,7 +55,10 @@ const extensions = [
 
 // const content = "<p>Hello World 2!</p>";
 
-const TextEditor = () => {
+type Props = {
+  placeholder?: string;
+};
+const TextEditor = ({ placeholder }: Props) => {
   const theme = useTheme();
 
   const editor = useEditor({
@@ -65,6 +70,9 @@ const TextEditor = () => {
     },
     extensions: [
       // StarterKit,
+      Placeholder.configure({
+        placeholder
+      }),
       ...extensions
     ]
   });
