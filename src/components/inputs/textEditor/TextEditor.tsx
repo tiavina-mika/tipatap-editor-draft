@@ -22,7 +22,9 @@ const classes = {
   input: (theme: Theme) => ({
     borderRadius: 6,
     border: "1px solid " + theme.palette.grey[800],
-    padding: 6,
+    paddingLeft: 16,
+    paddingRight: 16,
+    minHeight: 150,
     "& p.is-editor-empty:first-child::before": {
       content: "attr(data-placeholder)",
       float: "left",
