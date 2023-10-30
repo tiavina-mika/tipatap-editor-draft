@@ -16,7 +16,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
 
 import { css } from "@emotion/css";
-import { useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 
 const classes = {
   input: (theme: Theme) => ({
@@ -37,6 +37,20 @@ const classes = {
       fontWeight: 400,
       lineHeight: "157.143%" /* 157.143% */
     }
+  }),
+  label: (theme: Theme) => ({
+    pointerEvents: "none",
+    color: theme.palette.grey[800],
+    fontFamily: "Product Sans Regular",
+    fontSize: 10,
+    fontStyle: "normal",
+    fontWeight: 400,
+    lineHeight: 1,
+    backgroundColor: "#fff",
+    zIndex: 100,
+    padding: "4px 3px",
+    marginLeft: 12,
+    top: -8
   })
 };
 const extensions = [
@@ -59,8 +73,9 @@ const extensions = [
 
 type Props = {
   placeholder?: string;
+  label?: string;
 };
-const TextEditor = ({ placeholder }: Props) => {
+const TextEditor = ({ placeholder, label }: Props) => {
   const theme = useTheme();
 
   const editor = useEditor({
@@ -83,7 +98,14 @@ const TextEditor = ({ placeholder }: Props) => {
     <>
       {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
       {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>}
-      <EditorContent editor={editor} />
+      <div className="positionRelative">
+        {label && (
+          <Typography css={classes.label} className="positionAbsolute">
+            {label}
+          </Typography>
+        )}
+        <EditorContent editor={editor} />
+      </div>
       <MenuBar editor={editor} />
     </>
   );
