@@ -6,6 +6,7 @@
     "@emotion/styled": "latest",
     "@mui/material": "latest",
     "@tiptap/extension-color": "2.1.12",
+    "@tiptap/extension-placeholder": "2.1.12",
     "@tiptap/extension-text": "2.1.12",
     "@tiptap/extension-text-style": "2.1.12",
     "@tiptap/pm": "2.1.12",

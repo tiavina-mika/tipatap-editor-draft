@@ -13,6 +13,8 @@ import MenuBar from "./MenuBar";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
+import Placeholder from "@tiptap/extension-placeholder";
+
 import { css } from "@emotion/css";
 import { useTheme } from "@mui/material";
 
@@ -20,12 +22,23 @@ const classes = {
   input: (theme: Theme) => ({
     borderRadius: 6,
     border: "1px solid " + theme.palette.grey[800],
-    padding: 6
+    padding: 6,
+    "& p.is-editor-empty:first-child::before": {
+      color: "#adb5bd",
+      content: "attr(data-placeholder)",
+      float: "left",
+      height: 0,
+      pointerEvents: "none"
+    }
   })
 };
 const extensions = [
+  Placeholder.configure({
+    placeholder: "Write something"
+  }),
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
+
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -38,13 +51,13 @@ const extensions = [
   })
 ];
 
-const content = "<p>Hello World 2!</p>";
+// const content = "<p>Hello World 2!</p>";
 
 const TextEditor = () => {
   const theme = useTheme();
 
   const editor = useEditor({
-    content,
+    // content,
     editorProps: {
       attributes: {
         class: css(classes.input(theme))
