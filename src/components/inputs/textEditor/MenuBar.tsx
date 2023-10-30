@@ -45,6 +45,13 @@ const MenuBar = ({ editor }: Props) => {
       >
         <img alt="strike" src="/icons/strike.svg" />
       </IconButton>
+      <IconButton
+        onClick={() => editor.chain().focus().toggleUnderline().run()}
+        disabled={!editor.can().chain().focus().toggleUnderline().run()}
+        css={classes.button(editor.isActive("underline"))}
+      >
+        <img alt="underline" src="/icons/underline.svg" />
+      </IconButton>
       <button
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}

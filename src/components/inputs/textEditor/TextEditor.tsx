@@ -20,6 +20,7 @@ import { Typography, useTheme } from "@mui/material";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
+import Underline from "@tiptap/extension-underline";
 
 const classes = {
   input: (theme: Theme) => ({
@@ -63,6 +64,7 @@ const extensions = [
   Paragraph,
   Text,
   TipTapTypography,
+  Underline,
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
