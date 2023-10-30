@@ -7,7 +7,9 @@ import TextEditor from "../components/inputs/textEditor/TextEditor";
 const Home = () => {
   return (
     <div>
-      <TextEditor />
+      <div css={{ paddingLeft: 12, paddingRight: 12 }}>
+        <TextEditor />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,9 @@
-// src/Tiptap.jsx
+/** @jsxRuntime classic /
+/* @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { Theme, jsx } from "@emotion/react";
 import {
   useEditor,
-  EditorProvider,
   FloatingMenu,
   BubbleMenu,
   EditorContent
@@ -11,7 +13,16 @@ import MenuBar from "./MenuBar";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
+import { css } from "@emotion/css";
+import { useTheme } from "@mui/material";
 
+const classes = {
+  input: (theme: Theme) => ({
+    borderRadius: 6,
+    border: "1px solid " + theme.palette.grey[800],
+    padding: 6
+  })
+};
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
@@ -30,18 +41,21 @@ const extensions = [
 const content = "<p>Hello World 2!</p>";
 
 const TextEditor = () => {
+  const theme = useTheme();
+
   const editor = useEditor({
     content,
-    // editorProps: {
-    //   attributes: {
-    //     class: 'm-2 p-2 border border-black rounded-lg',
-    //   },
-    // },
+    editorProps: {
+      attributes: {
+        class: css(classes.input(theme))
+      }
+    },
     extensions: [
       // StarterKit,
       ...extensions
     ]
   });
+
   return (
     <>
       {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
