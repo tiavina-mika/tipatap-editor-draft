@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "@emotion/babel-plugin": "11.10.6",
+    "@emotion/css": "11.10.6",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/material": "latest",
+    "@tiptap/extension-color": "2.1.12",
+    "@tiptap/extension-text": "2.1.12",
+    "@tiptap/extension-text-style": "2.1.12",
+    "@tiptap/pm": "2.1.12",
+    "@tiptap/react": "2.1.12",
+    "@tiptap/starter-kit": "2.1.12",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest"
+  },
+  "description": "https://github.com/mui/material-ui/blob/v5.14.2/docs/data/material/components/box/BoxSx.tsx",
+  "devDependencies": {
+    "react-scripts": "latest"
+  },
+  "main": "index.tsx",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "name": "tyt2sj",
+  "version": "0.0.0"
+}
