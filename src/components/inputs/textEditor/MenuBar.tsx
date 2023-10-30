@@ -1,8 +1,9 @@
-import { useCurrentEditor } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
 
-const MenuBar = () => {
-  const { editor } = useCurrentEditor();
-
+type Props = {
+  editor: Editor;
+};
+const MenuBar = ({ editor }: Props) => {
   if (!editor) {
     return null;
   }

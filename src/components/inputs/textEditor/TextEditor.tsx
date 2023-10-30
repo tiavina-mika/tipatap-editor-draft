@@ -3,7 +3,8 @@ import {
   useEditor,
   EditorProvider,
   FloatingMenu,
-  BubbleMenu
+  BubbleMenu,
+  EditorContent
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./MenuBar";
@@ -29,15 +30,25 @@ const extensions = [
 const content = "<p>Hello World 2!</p>";
 
 const TextEditor = () => {
+  const editor = useEditor({
+    content,
+    // editorProps: {
+    //   attributes: {
+    //     class: 'm-2 p-2 border border-black rounded-lg',
+    //   },
+    // },
+    extensions: [
+      // StarterKit,
+      ...extensions
+    ]
+  });
   return (
-    <EditorProvider
-      slotBefore={<MenuBar />}
-      extensions={extensions}
-      content={content}
-    >
-      <FloatingMenu>This is the floating menu</FloatingMenu>
-      <BubbleMenu>This is the bubble menu</BubbleMenu>
-    </EditorProvider>
+    <>
+      {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
+      {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>}
+      <EditorContent editor={editor} />
+      <MenuBar editor={editor} />
+    </>
   );
 };
 
