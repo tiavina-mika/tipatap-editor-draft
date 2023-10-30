@@ -14,9 +14,12 @@ import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
-
+import TipTapTypography from "@tiptap/extension-typography";
 import { css } from "@emotion/css";
 import { Typography, useTheme } from "@mui/material";
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
 
 const classes = {
   input: (theme: Theme) => ({
@@ -56,7 +59,10 @@ const classes = {
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] }),
-
+  Document,
+  Paragraph,
+  Text,
+  TipTapTypography,
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -92,10 +98,11 @@ const TextEditor = ({ placeholder, label }: Props) => {
       }),
       ...extensions
     ]
+    // content,
   });
 
   return (
-    <>
+    <div>
       {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
       {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>}
       <div className="positionRelative">
@@ -107,7 +114,7 @@ const TextEditor = ({ placeholder, label }: Props) => {
         <EditorContent editor={editor} />
       </div>
       <MenuBar editor={editor} />
-    </>
+    </div>
   );
 };
 
