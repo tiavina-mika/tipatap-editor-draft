@@ -5,6 +5,7 @@ import { jsx } from "@emotion/react";
 import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
+import LinkButton from "./LinkButton";
 
 const classes = {
   button: (isActive: boolean) => ({
@@ -64,13 +65,10 @@ const MenuBar = ({ editor }: Props) => {
       >
         <img alt="bullet-list" src="/icons/bullet-list.svg" />
       </IconButton>
-      <IconButton
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        disabled={!editor.can().chain().focus().toggleBulletList().run()}
+      <LinkButton
+        editor={editor}
         css={classes.button(editor.isActive("bulletList"))}
-      >
-        <img alt="link" src="/icons/link.svg" />
-      </IconButton>
+      />
 
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
