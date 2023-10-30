@@ -66,9 +66,7 @@ const extensions = [
   Text,
   TipTapTypography,
   Underline,
-  Link.configure({
-    openOnClick: false
-  }),
+  Link,
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -103,8 +101,11 @@ const TextEditor = ({ placeholder, label }: Props) => {
         placeholder
       }),
       ...extensions
-    ]
-    // content,
+    ],
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML()
+      console.log('html', html)
+    }
   });
 
   return (

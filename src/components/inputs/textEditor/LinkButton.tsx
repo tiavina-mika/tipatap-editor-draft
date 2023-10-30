@@ -12,6 +12,9 @@ import {
 } from "@mui/material";
 import { Editor } from "@tiptap/react";
 import { Fragment, useState } from "react";
+import LinkForm from "./LinkForm";
+
+const formId = "link-dialog";
 
 type Props = {
   editor: Editor;
@@ -26,6 +29,28 @@ const LinkButton = ({ editor, className }: Props) => {
 
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
+  const handleConfirm = (url: string) => {
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.commands.unsetLink();
+      return;
+    }
+
+    // update link
+    editor.commands.setLink({ href: url });
+    toggleLinkDialog();
+  };
+
+  const handleCancel = () => {
+    editor.commands.unsetLink();
+    toggleLinkDialog();
+  };
+
   return (
     <Fragment>
       <IconButton onClick={toggleLinkDialog} className={className}>
@@ -37,14 +62,13 @@ const LinkButton = ({ editor, className }: Props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>Cool</DialogContent>
+        <DialogContent>
+          <LinkForm onSubmit={handleConfirm} formId={formId} />
+        </DialogContent>
         <DialogActions>
-          <Button onClick={toggleLinkDialog}>Disagree</Button>
-          <Button onClick={toggleLinkDialog} autoFocus>
-            Agree
+          <Button onClick={handleCancel}>Annuler</Button>
+          <Button variant="contained" form={formId} autoFocus type="submit">
+            Ok
           </Button>
         </DialogActions>
       </Dialog>
