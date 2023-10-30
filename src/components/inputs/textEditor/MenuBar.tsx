@@ -52,6 +52,20 @@ const MenuBar = ({ editor }: Props) => {
       >
         <img alt="underline" src="/icons/underline.svg" />
       </IconButton>
+      <IconButton
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        disabled={!editor.can().chain().focus().toggleBulletList().run()}
+        css={classes.button(editor.isActive("bulletList"))}
+      >
+        <img alt="bullet-list" src="/icons/bullet-list.svg" />
+      </IconButton>
+
+      <button
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        className={editor.isActive("bulletList") ? "is-active" : ""}
+      >
+        bullet list
+      </button>
       <button
         onClick={() => editor.chain().focus().toggleCode().run()}
         disabled={!editor.can().chain().focus().toggleCode().run()}
@@ -107,12 +121,7 @@ const MenuBar = ({ editor }: Props) => {
       >
         h6
       </button>
-      <button
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive("bulletList") ? "is-active" : ""}
-      >
-        bullet list
-      </button>
+
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? "is-active" : ""}
