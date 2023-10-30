@@ -21,6 +21,7 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
+import Link from "@tiptap/extension-link";
 
 const classes = {
   input: (theme: Theme) => ({
@@ -65,6 +66,9 @@ const extensions = [
   Text,
   TipTapTypography,
   Underline,
+  Link.configure({
+    openOnClick: false
+  }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,

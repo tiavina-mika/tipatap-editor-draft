@@ -4,6 +4,7 @@
 import { jsx } from "@emotion/react";
 import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
+import { useState } from "react";
 
 const classes = {
   button: (isActive: boolean) => ({
@@ -18,9 +19,13 @@ type Props = {
   editor: Editor;
 };
 const MenuBar = ({ editor }: Props) => {
+  const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
+
   if (!editor) {
     return null;
   }
+
+  const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   return (
     <div className="flex">
@@ -58,6 +63,13 @@ const MenuBar = ({ editor }: Props) => {
         css={classes.button(editor.isActive("bulletList"))}
       >
         <img alt="bullet-list" src="/icons/bullet-list.svg" />
+      </IconButton>
+      <IconButton
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        disabled={!editor.can().chain().focus().toggleBulletList().run()}
+        css={classes.button(editor.isActive("bulletList"))}
+      >
+        <img alt="link" src="/icons/link.svg" />
       </IconButton>
 
       <button
