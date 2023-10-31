@@ -61,6 +61,7 @@ const classes = {
     top: -8
   })
 };
+
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] } as any),
@@ -69,7 +70,15 @@ const extensions = [
   Text,
   TipTapTypography,
   Underline,
-  Link,
+  Link.configure({
+    HTMLAttributes: {
+      // Change rel to different value
+      // Allow search engines to follow links(remove nofollow)
+      rel: "noopener noreferrer",
+      // Remove target entirely so links open in current tab
+      target: null
+    }
+  }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
