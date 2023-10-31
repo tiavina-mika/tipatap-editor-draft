@@ -25,25 +25,26 @@ import Link from "@tiptap/extension-link";
 import MenuBar from "./MenuBar";
 
 const classes = {
-  input: (theme: Theme) => ({
-    borderRadius: 6,
-    border: "1px solid " + theme.palette.grey[800],
-    paddingLeft: 16,
-    paddingRight: 16,
-    minHeight: 150,
-    "& p.is-editor-empty:first-child::before": {
-      content: "attr(data-placeholder)",
-      float: "left",
-      height: 0,
-      pointerEvents: "none",
-      color: theme.palette.grey[300],
-      fontFamily: "Product Sans Regular",
-      fontSize: 14,
-      fontStyle: "normal",
-      fontWeight: 400,
-      lineHeight: "157.143%" /* 157.143% */
-    }
-  }),
+  input: (theme: Theme) =>
+    css({
+      borderRadius: 6,
+      border: "1px solid " + theme.palette.grey[800],
+      paddingLeft: 16,
+      paddingRight: 16,
+      minHeight: 150,
+      "& p.is-editor-empty:first-child::before": {
+        content: "attr(data-placeholder)",
+        float: "left",
+        height: 0,
+        pointerEvents: "none",
+        color: theme.palette.grey[300],
+        fontFamily: "Product Sans Regular",
+        fontSize: 14,
+        fontStyle: "normal",
+        fontWeight: 400,
+        lineHeight: "157.143%" /* 157.143% */
+      }
+    }),
   label: (theme: Theme) => ({
     pointerEvents: "none",
     color: theme.palette.grey[800],
@@ -104,7 +105,7 @@ const TextEditor = ({
     content: value,
     editorProps: {
       attributes: {
-        class: css(classes.input(theme))
+        class: classes.input(theme)
       }
     },
     extensions: [
