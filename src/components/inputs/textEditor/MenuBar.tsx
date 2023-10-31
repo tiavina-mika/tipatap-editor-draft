@@ -14,7 +14,7 @@ const classes = {
     cursor: "pointer",
     height: 24,
     width: 24,
-    padding: 8,
+    padding: 14,
     backgroundColor: isActive ? theme.palette.primary.light : "#fff"
   })
 };
