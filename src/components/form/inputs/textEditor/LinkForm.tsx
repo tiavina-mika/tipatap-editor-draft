@@ -13,7 +13,7 @@ const linkSchema = z.object({
 export type ILinkInput = z.infer<typeof linkSchema>;
 
 type Props = {
-  onSubmit?: (value: string) => void;
+  onSubmit: (value: string) => void;
   formId: string;
 };
 
