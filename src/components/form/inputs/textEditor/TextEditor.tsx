@@ -29,9 +29,9 @@ const classes = {
   input: (theme: Theme, editable = true) =>
     css({
       borderRadius: 6,
-      // border: editable ? "1px solid " + theme.palette.grey[800] : "none",
-      paddingLeft: 16,
-      paddingRight: 16,
+      border: editable ? "1px solid " + theme.palette.grey[800] : "none",
+      paddingLeft: editable ? 16 : 0,
+      paddingRight: editable ? 16 : 0,
       minHeight: 150,
       "& p.is-editor-empty:first-child::before": {
         content: "attr(data-placeholder)",
