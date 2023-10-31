@@ -7,28 +7,45 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  IconButton
+  IconButton,
+  TextField
 } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { Fragment, useState } from "react";
-import LinkForm from "./LinkForm";
+import { ChangeEvent, Fragment, useState } from "react";
+import { z } from "zod";
 
-const formId = "link-dialog";
+const linkSchema = z
+  .string()
+  .url()
+  .min(2, { message: "Must be 2 or more characters long" });
 
 type Props = {
   editor: Editor;
   className?: string;
 };
 const LinkButton = ({ editor, className }: Props) => {
+  const [link, setLink] = useState<string>("");
   const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   if (!editor) {
     return null;
   }
 
+  const handleChangeLink = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setLink(value);
+  };
+
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
-  const handleConfirm = (url: string) => {
+  const handleConfirm = () => {
+    const isValid = linkSchema.safeParse(link);
+    if (!isValid.success) {
+      setError("Lien invalide");
+      return;
+    }
+    const url = link;
     // cancelled
     if (url === null) {
       return;
@@ -42,11 +59,15 @@ const LinkButton = ({ editor, className }: Props) => {
 
     // update link
     editor.commands.setLink({ href: url });
+    setError("");
+    setLink("");
     toggleLinkDialog();
   };
 
   const handleCancel = () => {
     editor.commands.unsetLink();
+    setError("");
+    setLink("");
     toggleLinkDialog();
   };
 
@@ -62,11 +83,20 @@ const LinkButton = ({ editor, className }: Props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <LinkForm onSubmit={handleConfirm} formId={formId} />
+          <TextField
+            placeholder="Lien"
+            variant="standard"
+            type="url"
+            fullWidth
+            onChange={handleChangeLink}
+            value={link}
+            error={!!error}
+            helperText={error}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancel}>Annuler</Button>
-          <Button variant="contained" form={formId} autoFocus type="submit">
+          <Button onClick={handleConfirm} variant="contained" autoFocus>
             Ok
           </Button>
         </DialogActions>
