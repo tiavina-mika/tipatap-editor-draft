@@ -1,19 +1,21 @@
 /** @jsxRuntime classic /
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
+import { Theme, jsx } from "@emotion/react";
 import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
 import LinkButton from "./LinkButton";
 
 const classes = {
-  button: (isActive: boolean) => ({
+  button: (isActive: boolean) => (theme: Theme) => ({
     borderRadius: 0,
     border: "none",
     cursor: "pointer",
     height: 24,
-    width: 24
+    width: 24,
+    padding: 8,
+    backgroundColor: isActive ? theme.palette.primary.light : "#fff"
   })
 };
 type Props = {
