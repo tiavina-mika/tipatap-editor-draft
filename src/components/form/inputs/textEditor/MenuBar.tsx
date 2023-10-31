@@ -4,7 +4,6 @@
 import { Theme, jsx } from "@emotion/react";
 import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { useState } from "react";
 import LinkButton from "./LinkButton";
 
 const classes = {
@@ -33,13 +32,9 @@ type Props = {
   className: string;
 };
 const MenuBar = ({ editor, className }: Props) => {
-  const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
-
   if (!editor) {
     return null;
   }
-
-  const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   return (
     <div className={className} css={classes.menu}>
