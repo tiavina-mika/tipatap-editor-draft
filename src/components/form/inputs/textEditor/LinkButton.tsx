@@ -14,7 +14,7 @@ import { Editor } from "@tiptap/react";
 import { ChangeEvent, Fragment, useState } from "react";
 import { z } from "zod";
 
-const linkSchema = z
+const linkSchemaField = z
   .string()
   .url()
   .min(2, { message: "Must be 2 or more characters long" });
@@ -40,8 +40,8 @@ const LinkButton = ({ editor, className }: Props) => {
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   const handleConfirm = () => {
-    const isValid = linkSchema.safeParse(link);
-    if (!isValid.success) {
+    const validation = linkSchemaField.safeParse(link);
+    if (!validation.success) {
       setError("Lien invalide");
       return;
     }
