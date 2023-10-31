@@ -6,7 +6,8 @@ import {
   useEditor,
   // FloatingMenu,
   // BubbleMenu,
-  EditorContent
+  EditorContent,
+  EditorOptions
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
@@ -25,10 +26,10 @@ import Link from "@tiptap/extension-link";
 import MenuBar from "./MenuBar";
 
 const classes = {
-  input: (theme: Theme) =>
+  input: (theme: Theme, editable: boolean = true) =>
     css({
       borderRadius: 6,
-      border: "1px solid " + theme.palette.grey[800],
+      border: editable ? "1px solid " + theme.palette.grey[800] : "none",
       paddingLeft: 16,
       paddingRight: 16,
       minHeight: 150,
@@ -87,17 +88,20 @@ export type TextEditorProps = {
   placeholder?: string;
   label?: string;
   error?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   className?: string;
   value?: string;
-};
+} & Partial<EditorOptions>;
+
 const TextEditor = ({
   placeholder,
   label,
   error,
   onChange,
   className,
-  value
+  value,
+  editable = true,
+  ...editorOptions
 }: TextEditorProps) => {
   const theme = useTheme();
 
@@ -105,7 +109,7 @@ const TextEditor = ({
     content: value,
     editorProps: {
       attributes: {
-        class: classes.input(theme)
+        class: classes.input(theme, editable)
       }
     },
     extensions: [
@@ -117,9 +121,14 @@ const TextEditor = ({
     ],
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      onChange(html);
-    }
+      onChange?.(html);
+    },
+    ...editorOptions
   });
+
+  if (!editable) {
+    return <EditorContent editor={editor} className={className} />;
+  }
 
   return (
     <div className={cx("flexColumn", className)}>
