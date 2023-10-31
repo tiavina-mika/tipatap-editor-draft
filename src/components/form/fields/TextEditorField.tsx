@@ -21,7 +21,7 @@ const TextEditorField = ({ name, ...inputProps }: Props) => {
         <TextEditor
           {...field}
           {...inputProps}
-          error={(errors as any)[name].message}
+          error={(errors as any)[name]?.message}
         />
       )}
     />
