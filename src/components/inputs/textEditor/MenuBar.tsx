@@ -29,7 +29,7 @@ const MenuBar = ({ editor }: Props) => {
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   return (
-    <div className="flex">
+    <div className="flex" css={{ paddingTop: 8, paddingBottom: 8 }}>
       <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -69,7 +69,7 @@ const MenuBar = ({ editor }: Props) => {
         editor={editor}
         css={classes.button(editor.isActive("bulletList"))}
       />
-
+      {/* 
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "is-active" : ""}
@@ -175,7 +175,7 @@ const MenuBar = ({ editor }: Props) => {
         }
       >
         purple
-      </button>
+      </button> */}
     </div>
   );
 };
