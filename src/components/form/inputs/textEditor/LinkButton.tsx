@@ -53,19 +53,19 @@ const LinkButton = ({ editor, className }: Props) => {
 
     // empty
     if (link === "") {
-      editor.commands.unsetLink();
+      (editor.commands as any).unsetLink();
       return;
     }
 
     // update link
-    editor.commands.setLink({ href: link });
+    (editor.commands as any).setLink({ href: link });
     setError("");
     setLink("");
     toggleLinkDialog();
   };
 
   const handleCancel = () => {
-    editor.commands.unsetLink();
+    (editor.commands as any).unsetLink();
     setError("");
     setLink("");
     toggleLinkDialog();
