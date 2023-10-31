@@ -45,20 +45,20 @@ const LinkButton = ({ editor, className }: Props) => {
       setError("Lien invalide");
       return;
     }
-    const url = link;
+
     // cancelled
-    if (url === null) {
+    if (link === null) {
       return;
     }
 
     // empty
-    if (url === "") {
+    if (link === "") {
       editor.commands.unsetLink();
       return;
     }
 
     // update link
-    editor.commands.setLink({ href: url });
+    editor.commands.setLink({ href: link });
     setError("");
     setLink("");
     toggleLinkDialog();
