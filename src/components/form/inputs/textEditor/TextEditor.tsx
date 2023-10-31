@@ -29,7 +29,7 @@ const classes = {
   input: (theme: Theme, editable = true) =>
     css({
       borderRadius: 6,
-      border: editable ? "1px solid " + theme.palette.grey[800] : "none",
+      // border: editable ? "1px solid " + theme.palette.grey[800] : "none",
       paddingLeft: 16,
       paddingRight: 16,
       minHeight: 150,
@@ -106,6 +106,7 @@ const TextEditor = ({
   const theme = useTheme();
 
   const editor = useEditor({
+    editable,
     content: value,
     editorProps: {
       attributes: {
