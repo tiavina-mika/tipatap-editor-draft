@@ -4,24 +4,25 @@
 import { Theme, jsx } from "@emotion/react";
 import {
   useEditor,
-  FloatingMenu,
-  BubbleMenu,
+  // FloatingMenu,
+  // BubbleMenu,
   EditorContent
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import MenuBar from "./MenuBar";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
 import TipTapTypography from "@tiptap/extension-typography";
-import { css } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import { FormHelperText, Typography, useTheme } from "@mui/material";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
+
+import MenuBar from "./MenuBar";
 
 const classes = {
   input: (theme: Theme) => ({
@@ -86,12 +87,14 @@ export type TextEditorProps = {
   label?: string;
   error?: string;
   onChange: (value: string) => void;
+  className?: string;
 };
 const TextEditor = ({
   placeholder,
   label,
   error,
-  onChange
+  onChange,
+  className
 }: TextEditorProps) => {
   const theme = useTheme();
 
@@ -116,15 +119,15 @@ const TextEditor = ({
   });
 
   return (
-    <div>
-      {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
-      {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>}
-      <div className="positionRelative">
+    <div className={cx("flexColumn", className)}>
+      <div className="positionRelative stretchSelf">
         {label && (
           <Typography css={classes.label} className="positionAbsolute">
             {label}
           </Typography>
         )}
+        {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
+        {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
         <EditorContent editor={editor} />
         {error && (
           <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
@@ -132,7 +135,7 @@ const TextEditor = ({
           </FormHelperText>
         )}
       </div>
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} className="stretchSelf" />
     </div>
   );
 };

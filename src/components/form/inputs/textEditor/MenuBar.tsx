@@ -30,8 +30,9 @@ const classes = {
 };
 type Props = {
   editor: Editor;
+  className: string;
 };
-const MenuBar = ({ editor }: Props) => {
+const MenuBar = ({ editor, className }: Props) => {
   const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
 
   if (!editor) {
@@ -41,7 +42,7 @@ const MenuBar = ({ editor }: Props) => {
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   return (
-    <div className="flex" css={classes.menu}>
+    <div className={className} css={classes.menu}>
       <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
