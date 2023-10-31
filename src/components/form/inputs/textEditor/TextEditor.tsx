@@ -16,7 +16,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
 import TipTapTypography from "@tiptap/extension-typography";
 import { css } from "@emotion/css";
-import { Typography, useTheme } from "@mui/material";
+import { FormHelperText, Typography, useTheme } from "@mui/material";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
@@ -81,11 +81,18 @@ const extensions = [
 
 // const content = "<p>Hello World 2!</p>";
 
-type Props = {
+export type TextEditorProps = {
   placeholder?: string;
   label?: string;
+  error?: string;
+  onChange: (value: string) => void;
 };
-const TextEditor = ({ placeholder, label }: Props) => {
+const TextEditor = ({
+  placeholder,
+  label,
+  error,
+  onChange
+}: TextEditorProps) => {
   const theme = useTheme();
 
   const editor = useEditor({
@@ -103,8 +110,8 @@ const TextEditor = ({ placeholder, label }: Props) => {
       ...extensions
     ],
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML()
-      console.log('html', html)
+      const html = editor.getHTML();
+      onChange(html);
     }
   });
 
@@ -119,6 +126,11 @@ const TextEditor = ({ placeholder, label }: Props) => {
           </Typography>
         )}
         <EditorContent editor={editor} />
+        {error && (
+          <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
+            {error}
+          </FormHelperText>
+        )}
       </div>
       <MenuBar editor={editor} />
     </div>
