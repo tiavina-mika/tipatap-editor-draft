@@ -24,8 +24,8 @@ type Props = {
   className?: string;
 };
 const LinkButton = ({ editor, className }: Props) => {
-  const [link, setLink] = useState<string>("");
   const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
+  const [link, setLink] = useState<string>("");
   const [error, setError] = useState<string>("");
 
   if (!editor) {
