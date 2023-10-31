@@ -18,7 +18,10 @@ type IProblemInput = z.infer<typeof problemSchema>;
 
 const Home = () => {
   const form = useForm<IProblemInput>({
-    resolver: zodResolver(problemSchema)
+    resolver: zodResolver(problemSchema),
+    defaultValues: {
+      description: "<p>hello</p>"
+    }
   });
 
   const { handleSubmit } = form;

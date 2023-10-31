@@ -4,7 +4,7 @@ import TextEditor from "../inputs/textEditor/TextEditor";
 
 type Props = {
   name: string;
-} & TextEditorProps;
+} & Omit<TextEditorProps, "onChange">;
 
 const TextEditorField = ({ name, ...inputProps }: Props) => {
   const {

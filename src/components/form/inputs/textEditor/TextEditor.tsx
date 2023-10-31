@@ -88,18 +88,20 @@ export type TextEditorProps = {
   error?: string;
   onChange: (value: string) => void;
   className?: string;
+  value?: string;
 };
 const TextEditor = ({
   placeholder,
   label,
   error,
   onChange,
-  className
+  className,
+  value
 }: TextEditorProps) => {
   const theme = useTheme();
 
   const editor = useEditor({
-    // content,
+    content: value,
     editorProps: {
       attributes: {
         class: css(classes.input(theme))
