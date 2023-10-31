@@ -36,7 +36,6 @@ const LinkForm = ({ onSubmit, formId }: Props) => {
     >
       <TextField
         placeholder="Lien"
-        name="link"
         variant="standard"
         type="url"
         fullWidth
