@@ -8,13 +8,16 @@ import { useState } from "react";
 import LinkButton from "./LinkButton";
 
 const classes = {
+  menu: (theme: Theme) => ({
+    border: "1px solid " + theme.palette.grey[100]
+  }),
   button: (isActive: boolean) => (theme: Theme) => ({
     borderRadius: 0,
     border: "none",
     cursor: "pointer",
     height: 24,
     width: 24,
-    padding: 14,
+    padding: 18,
     backgroundColor: isActive ? theme.palette.primary.light : "#fff"
   }),
   bordered: (theme: Theme) => {
@@ -38,7 +41,7 @@ const MenuBar = ({ editor }: Props) => {
   const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   return (
-    <div className="flex" css={{ paddingTop: 8, paddingBottom: 8 }}>
+    <div className="flex" css={classes.menu}>
       <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
