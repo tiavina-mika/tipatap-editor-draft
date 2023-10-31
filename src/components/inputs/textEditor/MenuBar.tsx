@@ -16,7 +16,14 @@ const classes = {
     width: 24,
     padding: 14,
     backgroundColor: isActive ? theme.palette.primary.light : "#fff"
-  })
+  }),
+  bordered: (theme: Theme) => {
+    const borderColor = theme.palette.grey[100];
+    return {
+      borderRight: "1px solid " + borderColor,
+      borderLeft: "1px solid " + borderColor
+    };
+  }
 };
 type Props = {
   editor: Editor;
@@ -63,13 +70,13 @@ const MenuBar = ({ editor }: Props) => {
       <IconButton
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         disabled={!editor.can().chain().focus().toggleBulletList().run()}
-        css={classes.button(editor.isActive("bulletList"))}
+        css={[classes.button(editor.isActive("bulletList")), classes.bordered]}
       >
         <img alt="bullet-list" src="/icons/bullet-list.svg" />
       </IconButton>
       <LinkButton
         editor={editor}
-        css={classes.button(editor.isActive("bulletList"))}
+        css={[classes.button(editor.isActive("link")), classes.bordered]}
       />
       {/* 
       <button
