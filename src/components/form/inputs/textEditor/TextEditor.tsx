@@ -26,7 +26,7 @@ import Link from "@tiptap/extension-link";
 import MenuBar from "./MenuBar";
 
 const classes = {
-  input: (theme: Theme, editable: boolean = true) =>
+  input: (theme: Theme, editable = true) =>
     css({
       borderRadius: 6,
       border: editable ? "1px solid " + theme.palette.grey[800] : "none",
