@@ -2,7 +2,7 @@
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
-import TextEditor from "../components/inputs/textEditor/TextEditor";
+import TextEditor from "../components/form/inputs/textEditor/TextEditor";
 
 const Home = () => {
   return (

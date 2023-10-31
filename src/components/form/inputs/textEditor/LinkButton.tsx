@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   IconButton
 } from "@mui/material";
 import { Editor } from "@tiptap/react";
