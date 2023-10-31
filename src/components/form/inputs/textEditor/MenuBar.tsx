@@ -32,10 +32,6 @@ type Props = {
   className: string;
 };
 const MenuBar = ({ editor, className }: Props) => {
-  if (!editor) {
-    return null;
-  }
-
   return (
     <div className={className} css={classes.menu}>
       <IconButton

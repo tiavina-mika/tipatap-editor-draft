@@ -46,7 +46,7 @@ const classes = {
       }
     }),
   label: (theme: Theme) => ({
-    pointerEvents: "none",
+    pointerEvents: "none" as const,
     color: theme.palette.grey[800],
     fontFamily: "Product Sans Regular",
     fontSize: 10,
@@ -62,7 +62,7 @@ const classes = {
 };
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  TextStyle.configure({ types: [ListItem.name] }),
+  TextStyle.configure({ types: [ListItem.name] } as any),
   Document,
   Paragraph,
   Text,
@@ -138,7 +138,7 @@ const TextEditor = ({
           </FormHelperText>
         )}
       </div>
-      <MenuBar editor={editor} className="stretchSelf" />
+      {editor && <MenuBar editor={editor} className="stretchSelf" />}
     </div>
   );
 };
