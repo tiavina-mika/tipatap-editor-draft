@@ -17,7 +17,7 @@ import { z } from "zod";
 const linkSchemaField = z
   .string()
   .url()
-  .min(2, { message: "Must be 2 or more characters long" });
+  .min(10, { message: "Must be 10 or more characters long" });
 
 type Props = {
   editor: Editor;
