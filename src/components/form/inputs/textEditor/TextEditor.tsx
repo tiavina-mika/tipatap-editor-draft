@@ -22,8 +22,9 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-
+import Mention from "@tiptap/extension-mention";
 import MenuBar from "./MenuBar";
+import suggestion from "./mention/suggestion";
 
 const classes = {
   input: (theme: Theme, editable = true) =>
@@ -78,6 +79,12 @@ const extensions = [
       // Remove target entirely so links open in current tab
       target: null
     }
+  }),
+  Mention.configure({
+    HTMLAttributes: {
+      class: "mention"
+    },
+    suggestion
   }),
   StarterKit.configure({
     bulletList: {
