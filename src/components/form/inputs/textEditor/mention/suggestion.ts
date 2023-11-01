@@ -1,10 +1,11 @@
 import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";
 
-import MentionList from "./Mentions";
+import Mentions from "./Mentions";
 
 const suggestion = {
   items: ({ query }) => {
+    console.log("query", query);
     return [
       "Lea Thompson",
       "Cyndi Lauper",
@@ -42,7 +43,7 @@ const suggestion = {
 
     return {
       onStart: (props) => {
-        component = new ReactRenderer(MentionList, {
+        component = new ReactRenderer(Mentions, {
           props,
           editor: props.editor
         });
