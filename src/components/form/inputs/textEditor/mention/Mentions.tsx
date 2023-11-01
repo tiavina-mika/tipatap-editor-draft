@@ -1,10 +1,26 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useState
-} from "react";
+/** @jsxRuntime classic /
+/* @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { Theme, jsx } from "@emotion/react";
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
+const classes = {
+  list: (theme: Theme) => ({
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+    position: "relative" as const,
+    overflow: "auto",
+    maxHeight: 300,
+    "& ul": { padding: 0 }
+  }),
+  item: (theme: Theme) => ({
+    "& .MuiTypography-root": {
+      color: theme.palette.grey[800]
+    }
+  })
+};
 const Mentions = forwardRef((props, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -54,21 +70,26 @@ const Mentions = forwardRef((props, ref) => {
   }));
 
   return (
-    <div className="items">
+    <List css={classes.list}>
       {props.items.length ? (
         props.items.map((item, index) => (
-          <button
-            className={`item ${index === selectedIndex ? "is-selected" : ""}`}
-            key={index}
-            onClick={() => selectItem(index)}
-          >
-            {item}
-          </button>
+          <ListItem disablePadding key={index}>
+            <ListItemButton
+              onClick={() => selectItem(index)}
+              className={`item ${index === selectedIndex ? "is-selected" : ""}`}
+            >
+              <ListItemText primary={item} css={classes.item} />
+            </ListItemButton>
+          </ListItem>
         ))
       ) : (
-        <div className="item">No result</div>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemText primary="No results" />
+          </ListItemButton>
+        </ListItem>
       )}
-    </div>
+    </List>
   );
 });
 
