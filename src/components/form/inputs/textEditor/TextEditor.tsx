@@ -28,14 +28,15 @@ import suggestion from "./mention/suggestion";
 
 const classes = {
   editor: (theme: Theme) => ({
-    '& .mention': {
+    "& .mention": {
       backgroundColor: theme.palette.grey[200],
       paddingLeft: 6,
       paddingRight: 6,
       paddingBottom: 3,
       borderRadius: 12,
       fontWeight: 300,
-      color: "#000"
+      color: "#000",
+      fontSize: 12
     }
   }),
   input: (theme: Theme, editable = true) =>
