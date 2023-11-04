@@ -3,10 +3,9 @@
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { ReactRendererOptions } from "@tiptap/react";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { IUserMention } from "../../../../../types/user.type";
 import { ISelectOption } from "../../../../../types/app.type";
+import { SuggestionProps } from "@tiptap/suggestion";
 
 const classes = {
   list: (theme: Theme) => ({
@@ -25,9 +24,9 @@ const classes = {
   })
 };
 type Props = {
-  items: ISelectOption[];
-  command: any;
-} & ReactRendererOptions;
+  command: (value: { id: ISelectOption }) => void;
+} & SuggestionProps<ISelectOption>; // items should be an select option
+
 const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -35,6 +34,7 @@ const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
     const item = items[index];
 
     if (item) {
+      // this id is accessible via node.attrs.id.label (id = option) in Mention config
       command({ id: item });
     }
   };
