@@ -27,6 +27,17 @@ import MenuBar from "./MenuBar";
 import suggestion from "./mention/suggestion";
 
 const classes = {
+  editor: (theme: Theme) => ({
+    '& .mention': {
+      backgroundColor: theme.palette.grey[200],
+      paddingLeft: 6,
+      paddingRight: 6,
+      paddingBottom: 3,
+      borderRadius: 12,
+      fontWeight: 300,
+      color: "#000"
+    }
+  }),
   input: (theme: Theme, editable = true) =>
     css({
       borderRadius: 6,
@@ -157,7 +168,7 @@ const TextEditor = ({
         )}
         {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
         {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} css={classes.editor} />
         {error && (
           <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
             {error}
