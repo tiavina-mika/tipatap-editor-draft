@@ -4,36 +4,9 @@ import tippy from "tippy.js";
 import Mentions from "./Mentions";
 import { MentionOptions } from "@tiptap/extension-mention";
 
-const suggestion: MentionOptions["suggestion"] = {
+const getSuggestion = (users = []): MentionOptions["suggestion"] => ({
   items: ({ query }) => {
-    console.log("query", query);
-    return [
-      "Lea Thompson",
-      "Cyndi Lauper",
-      "Tom Cruise",
-      "Madonna",
-      "Jerry Hall",
-      "Joan Collins",
-      "Winona Ryder",
-      "Christina Applegate",
-      "Alyssa Milano",
-      "Molly Ringwald",
-      "Ally Sheedy",
-      "Debbie Harry",
-      "Olivia Newton-John",
-      "Elton John",
-      "Michael J. Fox",
-      "Axl Rose",
-      "Emilio Estevez",
-      "Ralph Macchio",
-      "Rob Lowe",
-      "Jennifer Grey",
-      "Mickey Rourke",
-      "John Cusack",
-      "Matthew Broderick",
-      "Justine Bateman",
-      "Lisa Bonet"
-    ]
+    return users
       .filter((item) => item.toLowerCase().startsWith(query.toLowerCase()))
       .slice(0, 5);
   },
@@ -43,7 +16,12 @@ const suggestion: MentionOptions["suggestion"] = {
     let popup: any;
 
     return {
+      onBeforeStart: (props) => {
+        console.log("props 0");
+      },
       onStart: (props) => {
+        console.log("props");
+
         component = new ReactRenderer(Mentions, {
           props,
           editor: props.editor
@@ -94,6 +72,6 @@ const suggestion: MentionOptions["suggestion"] = {
       }
     };
   }
-};
+});
 
-export default suggestion;
+export default getSuggestion;

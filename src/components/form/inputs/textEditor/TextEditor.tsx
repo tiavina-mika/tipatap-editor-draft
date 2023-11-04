@@ -24,7 +24,7 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import MenuBar from "./MenuBar";
-import suggestion from "./mention/suggestion";
+import getSuggestion from "./mention/suggestion";
 
 const classes = {
   editor: (theme: Theme) => ({
@@ -96,7 +96,33 @@ const extensions = [
     HTMLAttributes: {
       class: "mention"
     },
-    suggestion
+    suggestion: getSuggestion([
+      "Lea Thompson",
+      "Cyndi Lauper",
+      "Tom Cruise",
+      "Madonna",
+      "Jerry Hall",
+      "Joan Collins",
+      "Winona Ryder",
+      "Christina Applegate",
+      "Alyssa Milano",
+      "Molly Ringwald",
+      "Ally Sheedy",
+      "Debbie Harry",
+      "Olivia Newton-John",
+      "Elton John",
+      "Michael J. Fox",
+      "Axl Rose",
+      "Emilio Estevez",
+      "Ralph Macchio",
+      "Rob Lowe",
+      "Jennifer Grey",
+      "Mickey Rourke",
+      "John Cusack",
+      "Matthew Broderick",
+      "Justine Bateman",
+      "Lisa Bonet"
+    ])
   }),
   StarterKit.configure({
     bulletList: {
