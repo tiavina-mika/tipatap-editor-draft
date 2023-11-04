@@ -79,7 +79,7 @@ const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
   return (
     <List css={classes.list}>
       {items.length ? (
-        items.map((item, index) => (
+        items.map((item: ISelectOption, index: number) => (
           <ListItem disablePadding key={index}>
             <ListItemButton
               onClick={() => selectItem(index)}

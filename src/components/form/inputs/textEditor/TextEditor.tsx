@@ -38,7 +38,8 @@ const classes = {
       borderRadius: 12,
       fontWeight: 300,
       color: "#000",
-      fontSize: 12
+      fontSize: 12,
+      textDecoration: "none"
     }
   }),
   input: (theme: Theme, editable = true) =>
