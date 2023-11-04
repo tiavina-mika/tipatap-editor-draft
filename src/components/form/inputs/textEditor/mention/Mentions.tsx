@@ -5,6 +5,8 @@ import { Theme, jsx } from "@emotion/react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { ReactRendererOptions } from "@tiptap/react";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { IUserMention } from "../../../../../types/user.type";
+import { ISelectOption } from "../../../../../types/app.type";
 
 const classes = {
   list: (theme: Theme) => ({
@@ -23,7 +25,7 @@ const classes = {
   })
 };
 type Props = {
-  items: string[];
+  items: ISelectOption[];
   command: any;
 } & ReactRendererOptions;
 const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
@@ -83,7 +85,7 @@ const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
               onClick={() => selectItem(index)}
               className={`item ${index === selectedIndex ? "is-selected" : ""}`}
             >
-              <ListItemText primary={item} css={classes.item} />
+              <ListItemText primary={item.label} css={classes.item} />
             </ListItemButton>
           </ListItem>
         ))

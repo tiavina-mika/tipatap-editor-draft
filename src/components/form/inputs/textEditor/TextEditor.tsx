@@ -25,6 +25,7 @@ import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
+import { ISelectOption } from "../../../../types/app.type";
 
 const classes = {
   editor: (theme: Theme) => ({
@@ -92,38 +93,6 @@ const extensions = [
       target: null
     }
   }),
-  Mention.configure({
-    HTMLAttributes: {
-      class: "mention"
-    },
-    suggestion: getSuggestion([
-      "Lea Thompson",
-      "Cyndi Lauper",
-      "Tom Cruise",
-      "Madonna",
-      "Jerry Hall",
-      "Joan Collins",
-      "Winona Ryder",
-      "Christina Applegate",
-      "Alyssa Milano",
-      "Molly Ringwald",
-      "Ally Sheedy",
-      "Debbie Harry",
-      "Olivia Newton-John",
-      "Elton John",
-      "Michael J. Fox",
-      "Axl Rose",
-      "Emilio Estevez",
-      "Ralph Macchio",
-      "Rob Lowe",
-      "Jennifer Grey",
-      "Mickey Rourke",
-      "John Cusack",
-      "Matthew Broderick",
-      "Justine Bateman",
-      "Lisa Bonet"
-    ])
-  }),
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -145,6 +114,7 @@ export type TextEditorProps = {
   onChange?: (value: string) => void;
   className?: string;
   value?: string;
+  mentions?: ISelectOption[];
 } & Partial<EditorOptions>;
 
 const TextEditor = ({
@@ -154,6 +124,7 @@ const TextEditor = ({
   onChange,
   className,
   value,
+  mentions,
   editable = true,
   ...editorOptions
 }: TextEditorProps) => {
@@ -168,9 +139,19 @@ const TextEditor = ({
       }
     },
     extensions: [
-      // StarterKit,
       Placeholder.configure({
         placeholder
+      }),
+      Mention.configure({
+        HTMLAttributes: {
+          class: "mention"
+        },
+        renderLabel({ options, node }) {
+          return `${options.suggestion.char}${
+            node.attrs.label ?? node.attrs.id.label
+          }`;
+        },
+        suggestion: getSuggestion(mentions)
       }),
       ...extensions
     ],
