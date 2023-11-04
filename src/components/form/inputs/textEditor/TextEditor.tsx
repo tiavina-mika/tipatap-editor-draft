@@ -7,7 +7,8 @@ import {
   // FloatingMenu,
   // BubbleMenu,
   EditorContent,
-  EditorOptions
+  EditorOptions,
+  mergeAttributes
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
@@ -105,7 +106,39 @@ const extensions = [
   })
 ];
 
-// const content = "<p>Hello World 2!</p>";
+const CustomMention = Mention.extend({
+  renderHTML({ node, HTMLAttributes }) {
+    return [
+      "a",
+      mergeAttributes(
+        { href: `/user/${HTMLAttributes["data-id"]}` },
+        this.options.HTMLAttributes,
+        HTMLAttributes
+      ),
+      this.options.renderLabel({
+        options: this.options,
+        node
+      })
+    ];
+  },
+  addAttributes() {
+    return {
+      id: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-id"),
+        renderHTML: (attributes) => {
+          if (!attributes.id?.value) {
+            return {};
+          }
+
+          return {
+            "data-id": attributes.id.value
+          };
+        }
+      }
+    };
+  }
+});
 
 export type TextEditorProps = {
   placeholder?: string;
@@ -142,7 +175,7 @@ const TextEditor = ({
       Placeholder.configure({
         placeholder
       }),
-      Mention.configure({
+      CustomMention.configure({
         HTMLAttributes: {
           class: "mention"
         },
