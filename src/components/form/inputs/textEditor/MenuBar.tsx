@@ -74,21 +74,12 @@ const MenuBar = ({ editor, className }: Props) => {
         css={[classes.button(editor.isActive("link")), classes.bordered]}
       />
       <IconButton
-        // onClick={() => editor.commands.insertContent('@')}
-        // onClick={() => editor.commands.insertContentAt(6, 'x', {
-        //   updateSelection: true,
-        //   parseOptions: {
-        //     preserveWhitespace: 'full',
-        //   }
-        // })}
         onClick={() => {
-          editor.chain().focus().insertContent('@').run()
+          editor.chain().focus().insertContent("@").run();
         }}
-        disabled={!editor.can().chain().focus().toggleBulletList().run()}
-        css={[classes.button(editor.isActive("bulletList")), classes.bordered]}
+        css={[classes.button(editor.isActive("mention")), classes.bordered]}
       >
-        {editor.isActive('mention') ? "x" : "o"}
-        <img alt="bullet-list" src="/icons/bullet-list.svg" />
+        <img alt="mention" src="/icons/mention.svg" />
       </IconButton>
       {/* 
       <button
