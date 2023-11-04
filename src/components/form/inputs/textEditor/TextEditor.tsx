@@ -107,6 +107,7 @@ const extensions = [
 ];
 
 const CustomMention = Mention.extend({
+  // use a link (with url) instead of the default span
   renderHTML({ node, HTMLAttributes }) {
     return [
       "a",
@@ -121,6 +122,7 @@ const CustomMention = Mention.extend({
       })
     ];
   },
+  // the attribute should be user id for exemple
   addAttributes() {
     return {
       id: {
