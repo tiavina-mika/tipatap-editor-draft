@@ -4,8 +4,9 @@
 import { Theme, jsx } from "@emotion/react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { ISelectOption } from "../../../../../types/app.type";
 import { SuggestionProps } from "@tiptap/suggestion";
+
+import { ISelectOption } from "../../../../../types/app.type";
 
 const classes = {
   list: (theme: Theme) => ({
