@@ -77,7 +77,6 @@ const MenuBar = ({ editor, className }: Props) => {
         onClick={() => {
           editor.chain().focus().insertContent("@").run();
         }}
-        css={[classes.button(editor.isActive("mention")), classes.bordered]}
       >
         <img alt="mention" src="/icons/mention.svg" />
       </IconButton>
