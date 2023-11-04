@@ -3,6 +3,7 @@
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { ReactRendererOptions } from "@tiptap/react";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
 const classes = {
@@ -21,35 +22,39 @@ const classes = {
     }
   })
 };
-const Mentions = forwardRef((props, ref) => {
+type Props = {
+  items: string[];
+  command: any;
+} & ReactRendererOptions;
+const Mentions = forwardRef<any, Props>(({ items, command }, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const selectItem = (index) => {
-    const item = props.items[index];
+  const selectItem = (index: number) => {
+    const item = items[index];
 
     if (item) {
-      props.command({ id: item });
+      command({ id: item });
     }
   };
 
   const upHandler = () => {
-    setSelectedIndex(
-      (selectedIndex + props.items.length - 1) % props.items.length
-    );
+    setSelectedIndex((selectedIndex + items.length - 1) % items.length);
   };
 
   const downHandler = () => {
-    setSelectedIndex((selectedIndex + 1) % props.items.length);
+    setSelectedIndex((selectedIndex + 1) % items.length);
   };
 
   const enterHandler = () => {
     selectItem(selectedIndex);
   };
 
-  useEffect(() => setSelectedIndex(0), [props.items]);
+  useEffect(() => setSelectedIndex(0), [items]);
 
-  useImperativeHandle(ref, () => ({
-    onKeyDown: ({ event }) => {
+  useImperativeHandle(ref, (): {
+    onKeyDown: ({ event }: { event: KeyboardEvent }) => boolean;
+  } => ({
+    onKeyDown: ({ event }: { event: KeyboardEvent }): boolean => {
       if (event.key === "ArrowUp") {
         upHandler();
         return true;
@@ -71,8 +76,8 @@ const Mentions = forwardRef((props, ref) => {
 
   return (
     <List css={classes.list}>
-      {props.items.length ? (
-        props.items.map((item, index) => (
+      {items.length ? (
+        items.map((item, index) => (
           <ListItem disablePadding key={index}>
             <ListItemButton
               onClick={() => selectItem(index)}
