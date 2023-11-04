@@ -2,8 +2,9 @@ import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";
 
 import Mentions from "./Mentions";
+import { MentionOptions } from "@tiptap/extension-mention";
 
-const suggestion = {
+const suggestion: MentionOptions["suggestion"] = {
   items: ({ query }) => {
     console.log("query", query);
     return [
@@ -38,8 +39,8 @@ const suggestion = {
   },
 
   render: () => {
-    let component;
-    let popup;
+    let component: any;
+    let popup: any;
 
     return {
       onStart: (props) => {
@@ -52,6 +53,7 @@ const suggestion = {
           return;
         }
 
+        if (!component) return;
         popup = tippy("body", {
           getReferenceClientRect: props.clientRect,
           appendTo: () => document.body,
@@ -60,10 +62,11 @@ const suggestion = {
           interactive: true,
           trigger: "manual",
           placement: "bottom-start"
-        });
+        } as any);
       },
 
       onUpdate(props) {
+        if (!component) return;
         component.updateProps(props);
 
         if (!props.clientRect) {
