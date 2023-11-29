@@ -102,7 +102,7 @@ const classes = {
       borderRadius: 0,
       paddingLeft: 0,
       paddingRight: 0,
-      height: 33
+      height: 48
     }),
   tab: (theme: Theme) =>
     css({
