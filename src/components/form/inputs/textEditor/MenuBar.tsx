@@ -92,10 +92,14 @@ const classes = {
   }),
   tabs: (theme: Theme) =>
     css({
+      "& .MuiTabs-flexContainer": {
+        gap: 8
+      },
       backgroundColor: theme.palette.primary.light,
       borderRadius: 0,
       paddingLeft: 0,
-      paddingRight: 0
+      paddingRight: 0,
+      height: 33
     }),
   tab: (theme: Theme) =>
     css({
