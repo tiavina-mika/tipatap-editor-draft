@@ -148,7 +148,6 @@ const MenuBar = ({ editor, className }: Props) => {
         <IconButton
           onClick={toggleFeatureTabs}
           css={classes.advancedFeaturesButton}
-          // css={classes.button(editor.isActive("bold"))}
         >
           <img alt="stars" src="/icons/sparkles.svg" />
         </IconButton>
