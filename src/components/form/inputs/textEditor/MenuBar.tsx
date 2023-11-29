@@ -11,7 +11,7 @@ import { ISelectOption } from "../../../../types/app.type";
 import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
 
-const featureOptions = [
+const textEditorFeatureOptions = [
   {
     label: "Complete",
     value: "complete"
@@ -134,7 +134,7 @@ const MenuBar = ({ editor, className }: Props) => {
     <div>
       {openFeatureTabs2 && (
         <Tabs
-          options={featureOptions}
+          options={textEditorFeatureOptions}
           tab={selectedFeature}
           onTabChange={handleSelectFeature}
           tabsClassName={classes.tabs(theme)}
