@@ -8,7 +8,6 @@ import { Editor } from "@tiptap/react";
 import { useState } from "react";
 import LinkButton from "./LinkButton";
 import { ISelectOption } from "../../../../types/app.type";
-import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
 
 const textEditorFeatureOptions = [
@@ -118,37 +117,31 @@ type Props = {
   className: string;
 };
 
-const openFeatureTabs2 = true;
-
 const MenuBar = ({ editor, className }: Props) => {
   const theme = useTheme();
-  const { open: openFeatureTabs, toggle: toggleFeatureTabs } = useToggle();
 
-  const [selectedFeature, setSelectedFeature] = useState<string>("complete");
+  const [selectedFeature, setSelectedFeature] = useState<ISelectOption | null>(
+    null
+  );
 
   const handleSelectFeature = (feature: ISelectOption) => {
-    setSelectedFeature(feature.value);
+    setSelectedFeature(feature);
   };
 
   return (
     <div>
-      {openFeatureTabs2 && (
-        <Tabs
-          options={textEditorFeatureOptions}
-          tab={selectedFeature}
-          onTabChange={handleSelectFeature}
-          tabsClassName={classes.tabs(theme)}
-          tabClassName={classes.tab(theme)}
-          css={classes.tabsContainer}
-          tabsContainerClassName={classes.tabsContent}
-        />
-      )}
+      <Tabs
+        options={textEditorFeatureOptions}
+        tab={selectedFeature}
+        onTabChange={handleSelectFeature}
+        tabsClassName={classes.tabs(theme)}
+        tabClassName={classes.tab(theme)}
+        css={classes.tabsContainer}
+        tabsContainerClassName={classes.tabsContent}
+      />
 
       <div className={className} css={classes.menu}>
-        <IconButton
-          onClick={toggleFeatureTabs}
-          css={classes.advancedFeaturesButton}
-        >
+        <IconButton css={classes.advancedFeaturesButton}>
           <img alt="sparkles" src="/icons/sparkles.svg" />
         </IconButton>
         <IconButton
