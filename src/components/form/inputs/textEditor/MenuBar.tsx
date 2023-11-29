@@ -4,7 +4,10 @@
 import { Theme, jsx } from "@emotion/react";
 import { IconButton } from "@mui/material";
 import { Editor } from "@tiptap/react";
+import { useState } from "react";
 import LinkButton from "./LinkButton";
+import { ISelectOption } from "../../../../types/app.type";
+import { useToggle } from "../../../../hooks/useToggle";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -37,16 +40,26 @@ type Props = {
   className: string;
 };
 const MenuBar = ({ editor, className }: Props) => {
+  const {
+    open: openFeatureOptions,
+    toggle: toggleFeatureOptions
+  } = useToggle();
+
+  const [feature, setFeature] = useState<ISelectOption | null>(null);
+
+  const handleSelectFeature = (feature: ISelectOption) => {
+    setFeature(feature);
+  };
+
   return (
     <div className={className} css={classes.menu}>
-    <IconButton
+      <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
         css={classes.advancedFeaturesButton}
         // css={classes.button(editor.isActive("bold"))}
       >
         <img alt="stars" src="/icons/sparkles.svg" />
-      </IconButton>  
+      </IconButton>
       <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
