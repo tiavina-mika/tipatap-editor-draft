@@ -2,7 +2,8 @@
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
-import { IconButton } from "@mui/material";
+import { css } from "@emotion/css";
+import { IconButton, useTheme } from "@mui/material";
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
 import LinkButton from "./LinkButton";
@@ -79,9 +80,24 @@ const classes = {
     };
   },
   advancedFeaturesButton: (theme: Theme) => ({
-    backgroundColor: theme.palette.info.light,
+    backgroundColor: theme.palette.primary.light,
     borderRadius: 0
-  })
+  }),
+  tabs: (theme: Theme) =>
+    css({
+      backgroundColor: theme.palette.primary.light,
+      borderRadius: 0
+    }),
+  tab: (theme: Theme) =>
+    css({
+      color: theme.palette.grey[800],
+      backgroundColor: "#fff",
+      fontSize: 14,
+      lineHeight: 1,
+      minHeight: "initial",
+      flex: "none !important",
+      padding: "9px 12px"
+    })
 };
 
 type Props = {
@@ -89,10 +105,13 @@ type Props = {
   className: string;
 };
 
+const openFeatureTabs2 = true;
+
 const MenuBar = ({ editor, className }: Props) => {
+  const theme = useTheme();
   const { open: openFeatureTabs, toggle: toggleFeatureTabs } = useToggle();
 
-  const [selectedFeature, setSelectedFeature] = useState<string>("");
+  const [selectedFeature, setSelectedFeature] = useState<string>("complete");
 
   const handleSelectFeature = (feature: ISelectOption) => {
     setSelectedFeature(feature.value);
@@ -100,11 +119,13 @@ const MenuBar = ({ editor, className }: Props) => {
 
   return (
     <div>
-      {openFeatureTabs && (
+      {openFeatureTabs2 && (
         <Tabs
           options={featureOptions}
           tab={selectedFeature}
           onTabChange={handleSelectFeature}
+          tabsClassName={classes.tabs(theme)}
+          tabClassName={classes.tab(theme)}
         />
       )}
 
