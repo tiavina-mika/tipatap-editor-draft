@@ -27,8 +27,14 @@ import Mention from "@tiptap/extension-mention";
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
+import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
 
 const classes = {
+  editorRoot: (theme: Theme) => ({
+    [theme.breakpoints.down("md")]: {
+      paddingBottom: 90
+    }
+  }),
   editor: (theme: Theme) => ({
     "& .mention": {
       backgroundColor: theme.palette.grey[200],
@@ -75,6 +81,14 @@ const classes = {
     padding: "4px 3px",
     marginLeft: 12,
     top: -8
+  }),
+  menu: (theme: Theme) => ({
+    [theme.breakpoints.down("md")]: {
+      position: "absolute" as const,
+      bottom: 0,
+      left: -LAYOUT_CONTENT_PADDING_X,
+      maxWidth: `calc(100vw + ${LAYOUT_CONTENT_PADDING_X * 2}px)`
+    }
   })
 };
 
@@ -151,6 +165,7 @@ export type TextEditorProps = {
   className?: string;
   value?: string;
   mentions?: ISelectOption[];
+  menuClassName?: string;
 } & Partial<EditorOptions>;
 
 const TextEditor = ({
@@ -161,6 +176,7 @@ const TextEditor = ({
   className,
   value,
   mentions,
+  menuClassName,
   editable = true,
   ...editorOptions
 }: TextEditorProps) => {
@@ -203,7 +219,10 @@ const TextEditor = ({
   }
 
   return (
-    <div className={cx("flexColumn", className)}>
+    <div
+      className={cx("positionRelative flexColumn", className)}
+      css={classes.editorRoot}
+    >
       <div className="positionRelative stretchSelf">
         {label && (
           <Typography css={classes.label} className="positionAbsolute">
@@ -219,7 +238,14 @@ const TextEditor = ({
           </FormHelperText>
         )}
       </div>
-      {editor && <MenuBar editor={editor} className="stretchSelf" />}
+      {editor && (
+        <div
+          css={classes.menu}
+          className={cx("positionAbsolute", menuClassName)}
+        >
+          <MenuBar editor={editor} className="stretchSelf" />
+        </div>
+      )}
     </div>
   );
 };

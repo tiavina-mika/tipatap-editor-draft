@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Form from "../components/form/Form";
+import { css } from "@emotion/css";
 
 const mentions = [
   { label: "Lea Thompson", value: "xxxx1" },
@@ -35,6 +36,13 @@ const mentions = [
   { label: "Justine Bateman", value: "xxxx24" },
   { label: "Lisa Bonet", value: "xxxx25" }
 ];
+
+const classes = {
+  textEditorMenu: css({
+    bottom: 70
+  })
+};
+
 export const problemSchema = z.object({
   description: z
     .string()
@@ -73,6 +81,7 @@ const Home = () => {
             label="Description"
             placeholder="Provide as much information as possible. This field has only one limit, yours."
             mentions={mentions}
+            menuClassName={classes.textEditorMenu}
           />
         </Form>
       </div>

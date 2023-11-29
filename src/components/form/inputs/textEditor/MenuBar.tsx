@@ -80,14 +80,16 @@ const classes = {
   },
   advancedFeaturesButton: (theme: Theme) => ({
     backgroundColor: theme.palette.primary.light,
-    borderRadius: 0
+    borderRadius: 0,
+    paddingLeft: 16,
+    paddingRight: 16
   }),
   tabsContainer: {
     height: "auto",
     borderBottom: "none"
   },
   tabsContent: css({
-    maxWidth: "100vw"
+    // maxWidth: "100vw"
   }),
   tabs: (theme: Theme) =>
     css({
@@ -96,7 +98,7 @@ const classes = {
       },
       backgroundColor: theme.palette.primary.light,
       borderRadius: 0,
-      paddingLeft: 0,
+      paddingLeft: 16,
       paddingRight: 0,
       height: 33
     }),
