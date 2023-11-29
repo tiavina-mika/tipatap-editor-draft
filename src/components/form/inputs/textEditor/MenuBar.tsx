@@ -83,10 +83,19 @@ const classes = {
     backgroundColor: theme.palette.primary.light,
     borderRadius: 0
   }),
+  tabsContainer: {
+    height: "auto",
+    borderBottom: "none"
+  },
+  tabsContent: css({
+    maxWidth: "100vw"
+  }),
   tabs: (theme: Theme) =>
     css({
       backgroundColor: theme.palette.primary.light,
-      borderRadius: 0
+      borderRadius: 0,
+      paddingLeft: 0,
+      paddingRight: 0
     }),
   tab: (theme: Theme) =>
     css({
@@ -126,6 +135,8 @@ const MenuBar = ({ editor, className }: Props) => {
           onTabChange={handleSelectFeature}
           tabsClassName={classes.tabs(theme)}
           tabClassName={classes.tab(theme)}
+          css={classes.tabsContainer}
+          tabsContainerClassName={classes.tabsContent}
         />
       )}
 
