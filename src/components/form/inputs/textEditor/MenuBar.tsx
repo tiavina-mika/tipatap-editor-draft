@@ -8,7 +8,8 @@ import LinkButton from "./LinkButton";
 
 const classes = {
   menu: (theme: Theme) => ({
-    border: "1px solid " + theme.palette.grey[100]
+    border: "1px solid " + theme.palette.grey[100],
+    borderLeft: "none" // because of sparkles button background
   }),
   button: (isActive: boolean) => (theme: Theme) => ({
     borderRadius: 0,
@@ -25,7 +26,11 @@ const classes = {
       borderRight: "1px solid " + borderColor,
       borderLeft: "1px solid " + borderColor
     };
-  }
+  },
+  advancedFeaturesButton: (theme: Theme) => ({
+    backgroundColor: theme.palette.info.light,
+    borderRadius: 0
+  })
 };
 type Props = {
   editor: Editor;
@@ -34,6 +39,14 @@ type Props = {
 const MenuBar = ({ editor, className }: Props) => {
   return (
     <div className={className} css={classes.menu}>
+    <IconButton
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        disabled={!editor.can().chain().focus().toggleBold().run()}
+        css={classes.advancedFeaturesButton}
+        // css={classes.button(editor.isActive("bold"))}
+      >
+        <img alt="stars" src="/icons/sparkles.svg" />
+      </IconButton>  
       <IconButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
