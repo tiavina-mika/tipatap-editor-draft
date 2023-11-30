@@ -16,7 +16,7 @@ const classes = {
   }),
   badge: (theme: Theme) => ({
     backgroundColor: theme.palette.error.dark,
-    top: -4,
+    top: -8,
     borderRadius: 6,
     padding: 6,
     zIndex: 1000
@@ -38,7 +38,6 @@ type Props = {
 } & IconButtonProps;
 
 const AIButton = ({ isWriting, ...props }: Props) => {
-  console.log(props.disabled);
   return (
     <div
       css={classes.advancedFeaturesButtonContainer}
