@@ -92,6 +92,7 @@ const MenuBar = ({
     onSelectIAFeature(tab);
     toggleIAFeatures();
   };
+
   return (
     <div>
       {openIAFeatures && (
