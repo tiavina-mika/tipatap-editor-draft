@@ -118,15 +118,15 @@ const classes = {
 type Props = {
   editor: Editor;
   className: string;
-  selectedFeature: string;
-  onSelectFeature: (feature: string) => void;
+  selectedIAFeature: string;
+  onSelectIAFeature: (feature: string) => void;
   enableIA?: boolean;
 };
 
 const MenuBar = ({
   editor,
-  selectedFeature,
-  onSelectFeature,
+  selectedIAFeature,
+  onSelectIAFeature,
   className,
   enableIA
 }: Props) => {
@@ -139,8 +139,8 @@ const MenuBar = ({
       {openIAFeatures && (
         <Tabs
           options={textEditorFeatureOptions}
-          tab={selectedFeature}
-          onTabChange={onSelectFeature}
+          tab={selectedIAFeature}
+          onTabChange={onSelectIAFeature}
           tabsClassName={classes.tabs(theme)}
           tabClassName={classes.tab(theme)}
           css={classes.tabsContainer}

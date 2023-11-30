@@ -184,7 +184,7 @@ const TextEditor = ({
   editable = true,
   ...editorOptions
 }: TextEditorProps) => {
-  const [selectedFeature, setSelectedFeature] = useState<string>("");
+  const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
 
   const theme = useTheme();
 
@@ -228,8 +228,8 @@ const TextEditor = ({
    * change the select text in edito if a feature is selected
    * @param editor
    */
-  const handleSelectFeature = (editor: Editor) => (feature: string) => {
-    setSelectedFeature(feature);
+  const handleSelectIAFeature = (editor: Editor) => (feature: string) => {
+    setSelectedIAFeature(feature);
     const { text, to } = getTextEditorSelectedText(editor);
     if (feature === "complete" && text === "hello") {
       editor.chain().focus().insertContent("cool").run();
@@ -266,8 +266,8 @@ const TextEditor = ({
         >
           <MenuBar
             editor={editor}
-            onSelectFeature={handleSelectFeature(editor)}
-            selectedFeature={selectedFeature}
+            onSelectIAFeature={handleSelectIAFeature(editor)}
+            selectedIAFeature={selectedIAFeature}
             className="stretchSelf"
             enableIA={!!getTextEditorSelectedText(editor)}
           />
