@@ -24,7 +24,7 @@ const classes = {
   defaultBadge: {
     right: -8
   },
-  isWrittingBadge: {
+  isWritingBadge: {
     right: -48
   },
   badgeText: {
@@ -34,10 +34,10 @@ const classes = {
 };
 
 type Props = {
-  isWritting?: boolean;
+  isWriting?: boolean;
 } & IconButtonProps;
 
-const AIButton = ({ isWritting, ...props }: Props) => {
+const AIButton = ({ isWriting, ...props }: Props) => {
   return (
     <div
       css={classes.advancedFeaturesButtonContainer}
@@ -51,12 +51,12 @@ const AIButton = ({ isWritting, ...props }: Props) => {
         <div
           css={[
             classes.badge,
-            isWritting ? classes.isWrittingBadge : classes.defaultBadge
+            isWriting ? classes.isWritingBadge : classes.defaultBadge
           ]}
           className="positionAbsolute"
         >
           <Typography css={classes.badgeText}>
-            {isWritting ? "Writting..." : "AI"}
+            {isWriting ? "Writting..." : "AI"}
           </Typography>
         </div>
       )}

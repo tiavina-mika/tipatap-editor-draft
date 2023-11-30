@@ -106,7 +106,7 @@ const MenuBar = ({
         <AIButton
           onClick={toggleIAFeatures}
           disabled={!enableIA}
-          // isWritting
+          // isWriting
         />
         <IconButton
           onClick={() => editor.chain().focus().toggleBold().run()}
