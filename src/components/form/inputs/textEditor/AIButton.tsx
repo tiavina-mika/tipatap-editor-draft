@@ -10,9 +10,9 @@ const classes = {
   },
   advancedFeaturesButton: (theme: Theme) => ({
     backgroundColor: theme.palette.primary.light,
-    borderRadius: 0,
-    paddingLeft: 16,
-    paddingRight: 16
+    borderRadius: 0
+    // paddingLeft: 16,
+    // paddingRight: 16
   }),
   badge: (theme: Theme) => ({
     backgroundColor: theme.palette.error.dark,
@@ -46,7 +46,7 @@ const AIButton = ({ isWriting, ...props }: Props) => {
       {/* button */}
       <IconButton css={classes.advancedFeaturesButton} {...props}>
         {props.disabled ? (
-          <img alt="ai" src="/icons/sparkles-outline.svg" />
+          <img alt="ai" src="/icons/sparkles-light.svg" />
         ) : (
           <img alt="ai-disabled" src="/icons/sparkles.svg" />
         )}
