@@ -9,6 +9,7 @@ import LinkButton from "./LinkButton";
 import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
 import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
+import AIButton from "./AIButton";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -31,12 +32,6 @@ const classes = {
       borderLeft: "1px solid " + borderColor
     };
   },
-  advancedFeaturesButton: (theme: Theme) => ({
-    backgroundColor: theme.palette.primary.light,
-    borderRadius: 0,
-    paddingLeft: 16,
-    paddingRight: 16
-  }),
   tabsContainer: {
     height: "auto",
     borderBottom: "none"
@@ -88,7 +83,7 @@ const MenuBar = ({
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
 
-  const handleChangeTab = (tab: string) => {
+  const handleSelectTab = (tab: string) => {
     onSelectIAFeature(tab);
     toggleIAFeatures();
   };
@@ -99,7 +94,7 @@ const MenuBar = ({
         <Tabs
           options={textEditorIAFeatureOptions}
           tab={selectedIAFeature}
-          onTabChange={handleChangeTab}
+          onTabChange={handleSelectTab}
           tabsClassName={classes.tabs(theme)}
           tabClassName={classes.tab(theme)}
           css={classes.tabsContainer}
@@ -108,13 +103,11 @@ const MenuBar = ({
       )}
 
       <div className={className} css={classes.menu}>
-        <IconButton
-          css={classes.advancedFeaturesButton}
+        <AIButton
           onClick={toggleIAFeatures}
           disabled={!enableIA}
-        >
-          <img alt="sparkles" src="/icons/sparkles.svg" />
-        </IconButton>
+          // isWritting
+        />
         <IconButton
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}

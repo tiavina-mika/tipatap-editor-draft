@@ -270,7 +270,7 @@ const TextEditor = ({
             editor={editor}
             onSelectIAFeature={handleSelectIAFeature(editor)}
             selectedIAFeature={selectedIAFeature}
-            className="stretchSelf"
+            className="stretchSelf flexRow"
             enableIA={!!getTextEditorSelectedText(editor)}
           />
         </div>
