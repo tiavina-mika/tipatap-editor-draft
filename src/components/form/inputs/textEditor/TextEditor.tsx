@@ -230,13 +230,14 @@ const TextEditor = ({
    */
   const handleSelectIAFeature = (editor: Editor) => (feature: string) => {
     setSelectedIAFeature(feature);
-    const { text, to } = getTextEditorSelectedText(editor);
-    if (feature === "complete" && text === "hello") {
+    const node = getTextEditorSelectedText(editor);
+    if (!node) return;
+    if (feature === "complete" && node.text === "hello") {
       editor.chain().focus().insertContent("cool").run();
     }
 
     // set the cursor after the selected text
-    editor.commands.setTextSelection(to);
+    editor.commands.setTextSelection(node.to);
   };
 
   return (
