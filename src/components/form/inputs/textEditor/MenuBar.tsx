@@ -5,9 +5,8 @@ import { Theme, jsx } from "@emotion/react";
 import { css } from "@emotion/css";
 import { IconButton, useTheme } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { useState } from "react";
 import LinkButton from "./LinkButton";
-import { ISelectOption } from "../../../../types/app.type";
+import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
 
 const textEditorFeatureOptions = [
@@ -131,20 +130,27 @@ const MenuBar = ({
 }: Props) => {
   const theme = useTheme();
 
+  const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
+
   return (
     <div>
-      <Tabs
-        options={textEditorFeatureOptions}
-        tab={selectedFeature}
-        onTabChange={onSelectFeature}
-        tabsClassName={classes.tabs(theme)}
-        tabClassName={classes.tab(theme)}
-        css={classes.tabsContainer}
-        tabsContainerClassName={classes.tabsContent}
-      />
+      {openIAFeatures && (
+        <Tabs
+          options={textEditorFeatureOptions}
+          tab={selectedFeature}
+          onTabChange={onSelectFeature}
+          tabsClassName={classes.tabs(theme)}
+          tabClassName={classes.tab(theme)}
+          css={classes.tabsContainer}
+          tabsContainerClassName={classes.tabsContent}
+        />
+      )}
 
       <div className={className} css={classes.menu}>
-        <IconButton css={classes.advancedFeaturesButton}>
+        <IconButton
+          css={classes.advancedFeaturesButton}
+          onClick={toggleIAFeatures}
+        >
           <img alt="sparkles" src="/icons/sparkles.svg" />
         </IconButton>
         <IconButton
