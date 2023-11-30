@@ -90,7 +90,8 @@ const classes = {
       position: "absolute" as const,
       bottom: 0,
       left: -LAYOUT_CONTENT_PADDING_X,
-      maxWidth: `calc(100vw + ${LAYOUT_CONTENT_PADDING_X * 2}px)`
+      right: -LAYOUT_CONTENT_PADDING_X,
+      maxWidth: `calc(100vw + ${LAYOUT_CONTENT_PADDING_X / 2}px)`
     }
   })
 };
