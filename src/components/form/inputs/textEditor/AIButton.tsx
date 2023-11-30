@@ -38,15 +38,22 @@ type Props = {
 } & IconButtonProps;
 
 const AIButton = ({ isWriting, ...props }: Props) => {
+  console.log(props.disabled);
   return (
     <div
       css={classes.advancedFeaturesButtonContainer}
       className="flexCenter positionRelative"
     >
+      {/* button */}
       <IconButton css={classes.advancedFeaturesButton} {...props}>
-        <img alt="sparkles" src="/icons/sparkles.svg" />
+        {props.disabled ? (
+          <img alt="ai" src="/icons/sparkles-outline.svg" />
+        ) : (
+          <img alt="ai-disabled" src="/icons/sparkles.svg" />
+        )}
       </IconButton>
 
+      {/* badge */}
       {!props.disabled && (
         <div
           css={[
