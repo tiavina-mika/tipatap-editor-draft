@@ -29,8 +29,8 @@ import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
 import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
+import { getTextEditorSelectedText } from "../../../../utils/utils";
 import { useState } from "react";
-import { getTextEditorSelectedText } from "./utils";
 
 const classes = {
   editorRoot: (theme: Theme) => ({
