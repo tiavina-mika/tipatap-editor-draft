@@ -7,6 +7,11 @@ type OutputType = {
   to: number;
 };
 
+/**
+ * retrieve the selected text with it position
+ * @param editor
+ * @param returnType
+ */
 export const getTextEditorSelectedText = (
   editor: Editor,
   returnType = "text"
