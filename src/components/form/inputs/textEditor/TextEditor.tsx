@@ -24,6 +24,7 @@ import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
+
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
@@ -136,6 +137,7 @@ const extensions = [
   Text,
   TipTapTypography,
   Underline,
+  // SelectedText,
   Link.configure({
     HTMLAttributes: {
       // Change rel to different value
