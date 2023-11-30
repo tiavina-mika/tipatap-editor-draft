@@ -1,5 +1,53 @@
 import { Editor } from "@tiptap/react";
 import { DOMSerializer } from "prosemirror-model";
+import { ISelectOption } from "../types/app.type";
+
+export const textEditorIAFeatureOptions: ISelectOption[] = [
+  {
+    label: "Complete",
+    value: "complete"
+  },
+  {
+    label: "Shorten",
+    value: "shorten"
+  },
+  {
+    label: "Extend",
+    value: "extend"
+  },
+  {
+    label: "Rephrase",
+    value: "rephrase"
+  },
+  {
+    label: "Summarize",
+    value: "summarize"
+  },
+  {
+    label: "Simplify",
+    value: "simplify"
+  },
+  {
+    label: "Spelling & Grammar",
+    value: "spelling"
+  },
+  {
+    label: "Emojify",
+    value: "emojify"
+  },
+  {
+    label: "Emojify",
+    value: "emojify"
+  },
+  {
+    label: "Tone of voice",
+    value: "toneOfVoice"
+  },
+  {
+    label: "Translate",
+    value: "translate"
+  }
+];
 
 type OutputType = {
   text: string;

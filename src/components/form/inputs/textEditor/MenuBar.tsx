@@ -8,53 +8,7 @@ import { Editor } from "@tiptap/react";
 import LinkButton from "./LinkButton";
 import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
-
-const textEditorFeatureOptions = [
-  {
-    label: "Complete",
-    value: "complete"
-  },
-  {
-    label: "Shorten",
-    value: "shorten"
-  },
-  {
-    label: "Extend",
-    value: "extend"
-  },
-  {
-    label: "Rephrase",
-    value: "rephrase"
-  },
-  {
-    label: "Summarize",
-    value: "summarize"
-  },
-  {
-    label: "Simplify",
-    value: "simplify"
-  },
-  {
-    label: "Spelling & Grammar",
-    value: "spelling"
-  },
-  {
-    label: "Emojify",
-    value: "emojify"
-  },
-  {
-    label: "Emojify",
-    value: "emojify"
-  },
-  {
-    label: "Tone of voice",
-    value: "toneOfVoice"
-  },
-  {
-    label: "Translate",
-    value: "translate"
-  }
-];
+import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -138,7 +92,7 @@ const MenuBar = ({
     <div>
       {openIAFeatures && (
         <Tabs
-          options={textEditorFeatureOptions}
+          options={textEditorIAFeatureOptions}
           tab={selectedIAFeature}
           onTabChange={onSelectIAFeature}
           tabsClassName={classes.tabs(theme)}
