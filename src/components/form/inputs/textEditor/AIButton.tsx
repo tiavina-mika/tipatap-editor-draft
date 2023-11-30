@@ -56,7 +56,7 @@ const AIButton = ({ isWriting, ...props }: Props) => {
           className="positionAbsolute"
         >
           <Typography css={classes.badgeText}>
-            {isWriting ? "Writting..." : "AI"}
+            {isWriting ? "Writing..." : "AI"}
           </Typography>
         </div>
       )}
