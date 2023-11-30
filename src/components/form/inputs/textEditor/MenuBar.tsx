@@ -119,25 +119,24 @@ const classes = {
 type Props = {
   editor: Editor;
   className: string;
+  selectedFeature: string;
+  onSelectFeature: (feature: string) => void;
 };
 
-const MenuBar = ({ editor, className }: Props) => {
+const MenuBar = ({
+  editor,
+  selectedFeature,
+  onSelectFeature,
+  className
+}: Props) => {
   const theme = useTheme();
-
-  const [selectedFeature, setSelectedFeature] = useState<ISelectOption | null>(
-    null
-  );
-
-  const handleSelectFeature = (feature: ISelectOption) => {
-    setSelectedFeature(feature);
-  };
 
   return (
     <div>
       <Tabs
         options={textEditorFeatureOptions}
         tab={selectedFeature}
-        onTabChange={handleSelectFeature}
+        onTabChange={onSelectFeature}
         tabsClassName={classes.tabs(theme)}
         tabClassName={classes.tab(theme)}
         css={classes.tabsContainer}

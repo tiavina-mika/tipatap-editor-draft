@@ -29,6 +29,8 @@ import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
 import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
+import { useState } from "react";
+import { getTextEditorSelectedText } from "./utils";
 
 const classes = {
   editorRoot: (theme: Theme) => ({
@@ -182,6 +184,8 @@ const TextEditor = ({
   editable = true,
   ...editorOptions
 }: TextEditorProps) => {
+  const [selectedFeature, setSelectedFeature] = useState<string>("");
+
   const theme = useTheme();
 
   const editor = useEditor({
@@ -220,6 +224,21 @@ const TextEditor = ({
     return <EditorContent editor={editor} className={className} />;
   }
 
+  /**
+   * change the select text in edito if a feature is selected
+   * @param editor
+   */
+  const handleSelectFeature = (editor: Editor) => (feature: string) => {
+    setSelectedFeature(feature);
+    const { text, to } = getTextEditorSelectedText(editor);
+    if (feature === "complete" && text === "hello") {
+      editor.chain().focus().insertContent("cool").run();
+    }
+
+    // set the cursor after the selected text
+    editor.commands.setTextSelection(to);
+  };
+
   return (
     <div
       className={cx("positionRelative flexColumn", className)}
@@ -245,7 +264,12 @@ const TextEditor = ({
           css={classes.menu}
           className={cx("positionAbsolute", menuClassName)}
         >
-          <MenuBar editor={editor} className="stretchSelf" />
+          <MenuBar
+            editor={editor}
+            onSelectFeature={handleSelectFeature(editor)}
+            selectedFeature={selectedFeature}
+            className="stretchSelf"
+          />
         </div>
       )}
     </div>

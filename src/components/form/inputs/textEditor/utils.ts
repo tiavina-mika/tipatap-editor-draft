@@ -1,10 +1,16 @@
 import { Editor } from "@tiptap/react";
 import { DOMSerializer } from "prosemirror-model";
 
-export const getSelectedText = (
+type OutputType = {
+  text: string;
+  from: number;
+  to: number;
+};
+
+export const getTextEditorSelectedText = (
   editor: Editor,
   returnType = "text"
-): string | null => {
+): OutputType | null => {
   if (!editor) return null;
   const { state } = editor;
   const { from, to, empty } = state.selection;
@@ -25,9 +31,17 @@ export const getSelectedText = (
       }
     });
 
-    return nodesArray.join("");
+    return {
+      text: nodesArray.join(""),
+      from,
+      to
+    };
   }
 
   // -------- text --------- //
-  return editor.state.doc.textBetween(from, to, " ");
+  return {
+    text: editor.state.doc.textBetween(from, to, " "),
+    from,
+    to
+  };
 };
