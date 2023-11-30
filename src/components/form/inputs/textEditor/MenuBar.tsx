@@ -88,13 +88,17 @@ const MenuBar = ({
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
 
+  const handleChangeTab = (tab: string) => {
+    onSelectIAFeature(tab);
+    toggleIAFeatures();
+  };
   return (
     <div>
       {openIAFeatures && (
         <Tabs
           options={textEditorIAFeatureOptions}
           tab={selectedIAFeature}
-          onTabChange={onSelectIAFeature}
+          onTabChange={handleChangeTab}
           tabsClassName={classes.tabs(theme)}
           tabClassName={classes.tab(theme)}
           css={classes.tabsContainer}
