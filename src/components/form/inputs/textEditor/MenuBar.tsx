@@ -120,13 +120,15 @@ type Props = {
   className: string;
   selectedFeature: string;
   onSelectFeature: (feature: string) => void;
+  enableIA?: boolean;
 };
 
 const MenuBar = ({
   editor,
   selectedFeature,
   onSelectFeature,
-  className
+  className,
+  enableIA
 }: Props) => {
   const theme = useTheme();
 
@@ -150,6 +152,7 @@ const MenuBar = ({
         <IconButton
           css={classes.advancedFeaturesButton}
           onClick={toggleIAFeatures}
+          disabled={!enableIA}
         >
           <img alt="sparkles" src="/icons/sparkles.svg" />
         </IconButton>

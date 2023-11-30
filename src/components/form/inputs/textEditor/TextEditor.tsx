@@ -269,6 +269,7 @@ const TextEditor = ({
             onSelectFeature={handleSelectFeature(editor)}
             selectedFeature={selectedFeature}
             className="stretchSelf"
+            enableIA={!!getTextEditorSelectedText(editor)}
           />
         </div>
       )}
