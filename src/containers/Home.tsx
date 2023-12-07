@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Form from "../components/form/Form";
 import { css } from "@emotion/css";
+import Footer from "../components/Footer";
 
 const mentions = [
   { label: "Lea Thompson", value: "xxxx1" },
@@ -85,6 +86,7 @@ const Home = () => {
           />
         </Form>
       </div>
+      <Footer />
     </div>
   );
 };
