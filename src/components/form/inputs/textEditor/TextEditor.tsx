@@ -2,6 +2,8 @@
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
+import { useEffect, useState } from "react";
+
 import {
   useEditor,
   // FloatingMenu,
@@ -34,11 +36,9 @@ import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
 import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
 import {
-  getCollaborationProviderByRoom,
+  getTextEditorInitialUser,
   getTextEditorSelectedText
 } from "../../../../utils/textEditor.utils";
-import { useEffect, useState } from "react";
-import { getInitialUser } from "../../../../utils/user.utils";
 
 const classes = {
   editorRoot: (theme: Theme) => ({
@@ -57,6 +57,13 @@ const classes = {
       color: "#000",
       fontSize: 12,
       textDecoration: "none"
+    },
+    " & .collaboration-cursor-name-label": {
+      maxWidth: 200,
+      borderRadius: 2,
+      padding: "4px 5px",
+      fontFamily: "Product Sans Regular",
+      fontWeight: 300
     }
   }),
   input: (theme: Theme, editable = true) =>
@@ -172,7 +179,29 @@ const extensions = [
 ];
 
 const ydoc = new Y.Doc();
-// const provider = new WebrtcProvider("workspace-04", ydoc);
+const provider = new WebrtcProvider("workspace-04", ydoc);
+
+const CustomCollaborationCursor = CollaborationCursor.extend({
+  addOptions() {
+    return {
+      ...this.parent?.(),
+      render: (user) => {
+        const cursor = document.createElement("div");
+
+        cursor.classList.add("collaboration-cursor-name-container");
+
+        const label = document.createElement("span");
+
+        label.classList.add("collaboration-cursor-name-label");
+        label.setAttribute("style", `background-color: ${user.color}`);
+        label.insertBefore(document.createTextNode(user.name), null);
+        cursor.insertBefore(label, null);
+
+        return cursor;
+      }
+    };
+  }
+});
 
 export type TextEditorProps = {
   placeholder?: string;
@@ -198,12 +227,8 @@ const TextEditor = ({
   ...editorOptions
 }: TextEditorProps) => {
   const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
-  const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState(getInitialUser);
-
+  const currentUser = getTextEditorInitialUser(); // simulate user from db
   const theme = useTheme();
-
-  // const { provider, ydoc } = getCollaborationProviderByRoom('workspace-01')
 
   const editor = useEditor({
     editable,
@@ -229,11 +254,8 @@ const TextEditor = ({
         suggestion: getSuggestion(mentions)
       }),
       // colaboration
-      CollaborationCursor.configure({
-        provider: new WebrtcProvider("workspace-06", ydoc),
-        onUpdate: (updatedUsers) => {
-          setUsers(updatedUsers);
-        },
+      CustomCollaborationCursor.configure({
+        provider,
         user: currentUser
       }),
       Collaboration.configure({
@@ -294,11 +316,15 @@ const TextEditor = ({
           </FormHelperText>
         )}
         {/* number of user online */}
-        <div css={{ paddingTop: 6, padddingBottom: 6 }}>
-          <Typography variant="body1">
-            {users.length} user{users.length === 1 ? "" : "s"} online
-          </Typography>
-        </div>
+        {editor && (
+          <div css={{ paddingTop: 6, padddingBottom: 6 }}>
+            <Typography variant="body1">
+              {editor.storage.collaborationCursor.users.length} user
+              {editor.storage.collaborationCursor.users.length === 1 ? "" : "s"}{" "}
+              online
+            </Typography>
+          </div>
+        )}
       </div>
 
       {editor && (
