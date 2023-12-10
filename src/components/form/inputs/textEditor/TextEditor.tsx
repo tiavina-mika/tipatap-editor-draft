@@ -182,7 +182,7 @@ const extensions = [
 ];
 
 const ydoc = new Y.Doc();
-const provider = new WebrtcProvider("workspace-04", ydoc);
+// const provider = new WebrtcProvider("workspace-04", ydoc);
 
 const CustomCollaborationCursor = CollaborationCursor.extend({
   addOptions() {
@@ -257,13 +257,13 @@ const TextEditor = ({
         suggestion: getSuggestion(mentions)
       }),
       // colaboration
-      CustomCollaborationCursor.configure({
-        provider,
-        user: currentUser
-      }),
-      Collaboration.configure({
-        document: ydoc
-      }),
+      // CustomCollaborationCursor.configure({
+      //   provider,
+      //   user: currentUser
+      // }),
+      // Collaboration.configure({
+      //   document: ydoc
+      // }),
       ...extensions
     ],
     onUpdate: ({ editor }) => {
@@ -275,6 +275,7 @@ const TextEditor = ({
   });
 
   useEffect(() => {
+    if (!editor?.chain().focus().user) return;
     if (editor && currentUser) {
       editor.chain().focus().user(currentUser).run();
     }
@@ -323,8 +324,8 @@ const TextEditor = ({
         {editor && (
           <div css={{ paddingTop: 6, padddingBottom: 6 }}>
             <Typography variant="body1">
-              {editor.storage.collaborationCursor.users.length} user
-              {editor.storage.collaborationCursor.users.length === 1
+              {editor.storage.collaborationCursor?.users.length} user
+              {editor.storage.collaborationCursor?.users.length === 1
                 ? ""
                 : "s"}{" "}
               online
