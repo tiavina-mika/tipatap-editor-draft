@@ -1,9 +1,8 @@
 import { Editor } from "@tiptap/react";
 import { DOMSerializer } from "prosemirror-model";
-import * as Y from "yjs";
-import { WebrtcProvider } from "y-webrtc";
+import { Theme } from "@emotion/react";
 
-import { ISelectOption } from "../types/app.type";
+import { ISelectOption, ITextEditorCollaborationUser } from "../types/app.type";
 
 export const textEditorIAFeatureOptions: ISelectOption[] = [
   {
@@ -102,26 +101,17 @@ export const getTextEditorSelectedText = (
   };
 };
 
-const colors = [
-  "#958DF1",
-  "#F98181",
-  "#FBBC88",
-  "#FAF594",
-  "#70CFF8",
-  "#94FADB",
-  "#B9F18D"
-];
 const names = [
-  "Lea Thompson",
-  "Cyndi Lauper",
-  "Tom Cruise",
-  "Madonna",
-  "Jerry Hall",
-  "Joan Collins",
-  "Winona Ryder",
-  "Christina Applegate",
-  "Alyssa Milano",
-  "Molly Ringwald",
+  "Tiavina Michael Ralainirina",
+  "Tanteraka Mario",
+  "Miora Sarobidy Razainirina",
+  "Koloina",
+  "Tatiana Maria",
+  "Tojo Heritiana",
+  "Jean Paul Valiha",
+  "Tafita",
+  "Manitra Raz",
+  "Jean Rolland",
   "Ally Sheedy",
   "Debbie Harry",
   "Olivia Newton-John",
@@ -139,15 +129,25 @@ const names = [
   "Lisa Bonet"
 ];
 
-const getRandomElement = (list) =>
-  list[Math.floor(Math.random() * list.length)];
+const getRandomElement = (list: string[]): string => {
+  return list[Math.floor(Math.random() * list.length)];
+};
 
-const getRandomColor = () => getRandomElement(colors);
 const getRandomName = () => getRandomElement(names);
 
-export const getTextEditorInitialUser = () => {
+export const getTextEditorInitialUser = (
+  theme: Theme
+): ITextEditorCollaborationUser => {
+  const colors = [
+    theme.palette.primary.main,
+    theme.palette.error.main,
+    theme.palette.success.main,
+    theme.palette.info.main,
+    theme.palette.warning.main
+  ];
+
   return {
     name: getRandomName(),
-    color: getRandomColor()
+    color: getRandomElement(colors)
   };
 };

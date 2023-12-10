@@ -8,3 +8,8 @@ export interface ISelectOption<V = any> {
 
 export type IProjectProduct = "roadmap" | "insight";
 export type IProjectProductOption = ISelectOption<IProjectProduct>;
+
+export interface ITextEditorCollaborationUser {
+  name: string;
+  color: string;
+}

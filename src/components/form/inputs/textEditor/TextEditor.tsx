@@ -33,7 +33,10 @@ import { WebrtcProvider } from "y-webrtc";
 
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
-import { ISelectOption } from "../../../../types/app.type";
+import {
+  ISelectOption,
+  ITextEditorCollaborationUser
+} from "../../../../types/app.type";
 import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
 import {
   getTextEditorInitialUser,
@@ -185,7 +188,7 @@ const CustomCollaborationCursor = CollaborationCursor.extend({
   addOptions() {
     return {
       ...this.parent?.(),
-      render: (user) => {
+      render: (user: ITextEditorCollaborationUser) => {
         const cursor = document.createElement("div");
 
         cursor.classList.add("collaboration-cursor-name-container");
@@ -227,8 +230,8 @@ const TextEditor = ({
   ...editorOptions
 }: TextEditorProps) => {
   const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
-  const currentUser = getTextEditorInitialUser(); // simulate user from db
   const theme = useTheme();
+  const currentUser = getTextEditorInitialUser(theme); // simulate user from db
 
   const editor = useEditor({
     editable,
@@ -267,6 +270,7 @@ const TextEditor = ({
       const html = editor.getHTML();
       onChange?.(html);
     },
+    autofocus: "end",
     ...editorOptions
   });
 
@@ -320,7 +324,9 @@ const TextEditor = ({
           <div css={{ paddingTop: 6, padddingBottom: 6 }}>
             <Typography variant="body1">
               {editor.storage.collaborationCursor.users.length} user
-              {editor.storage.collaborationCursor.users.length === 1 ? "" : "s"}{" "}
+              {editor.storage.collaborationCursor.users.length === 1
+                ? ""
+                : "s"}{" "}
               online
             </Typography>
           </div>
