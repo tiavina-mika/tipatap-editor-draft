@@ -26,12 +26,17 @@ import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
+import * as Y from "yjs";
+import { WebrtcProvider } from "y-webrtc";
 
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import { ISelectOption } from "../../../../types/app.type";
 import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
-import { getCollaborationProviderByRoom, getTextEditorSelectedText } from "../../../../utils/textEditor.utils";
+import {
+  getCollaborationProviderByRoom,
+  getTextEditorSelectedText
+} from "../../../../utils/textEditor.utils";
 import { useEffect, useState } from "react";
 import { getInitialUser } from "../../../../utils/user.utils";
 
@@ -165,6 +170,9 @@ const extensions = [
   })
 ];
 
+const ydoc = new Y.Doc();
+const provider = new WebrtcProvider("workspace-04", ydoc);
+
 export type TextEditorProps = {
   placeholder?: string;
   label?: string;
@@ -191,10 +199,10 @@ const TextEditor = ({
   const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(getInitialUser);
-  
+
   const theme = useTheme();
 
-  const { provider, ydoc } = getCollaborationProviderByRoom('workspace-01')
+  // const { provider, ydoc } = getCollaborationProviderByRoom('workspace-01')
 
   const editor = useEditor({
     editable,
@@ -220,9 +228,9 @@ const TextEditor = ({
         suggestion: getSuggestion(mentions)
       }),
       CollaborationCursor.configure({
-        provider: provider,
+        provider,
         onUpdate: (updatedUsers) => {
-          console.log('updatedUsers', updatedUsers)
+          console.log("updatedUsers", updatedUsers);
 
           setUsers(updatedUsers);
         },
@@ -245,7 +253,7 @@ const TextEditor = ({
       editor.chain().focus().user(currentUser).run();
     }
   }, [editor, currentUser]);
-  
+
   if (!editable) {
     return <EditorContent editor={editor} className={className} />;
   }
@@ -285,16 +293,14 @@ const TextEditor = ({
             {error}
           </FormHelperText>
         )}
-      {/* number of user online */}
-      <div css={{ paddingTop: 6 , padddingBottom: 6 }}>
-        <Typography variant="body1">
-          {users.length} user{users.length === 1 ? "" : "s"} online
-        </Typography>
-      </div>
+        {/* number of user online */}
+        <div css={{ paddingTop: 6, padddingBottom: 6 }}>
+          <Typography variant="body1">
+            {users.length} user{users.length === 1 ? "" : "s"} online
+          </Typography>
+        </div>
       </div>
 
- 
-        
       {editor && (
         <div
           css={classes.menu}
