@@ -166,7 +166,8 @@ const extensions = [
     orderedList: {
       keepMarks: true,
       keepAttributes: false // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-    }
+    },
+    history: false // important because history will now be handled by Y.js
   })
 ];
 
@@ -227,11 +228,10 @@ const TextEditor = ({
         },
         suggestion: getSuggestion(mentions)
       }),
+      // colaboration
       CollaborationCursor.configure({
         provider: new WebrtcProvider("workspace-06", ydoc),
         onUpdate: (updatedUsers) => {
-          console.log("updatedUsers", updatedUsers);
-
           setUsers(updatedUsers);
         },
         user: currentUser
