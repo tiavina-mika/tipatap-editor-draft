@@ -171,7 +171,7 @@ const extensions = [
 ];
 
 const ydoc = new Y.Doc();
-const provider = new WebrtcProvider("workspace-04", ydoc);
+// const provider = new WebrtcProvider("workspace-04", ydoc);
 
 export type TextEditorProps = {
   placeholder?: string;
@@ -228,7 +228,7 @@ const TextEditor = ({
         suggestion: getSuggestion(mentions)
       }),
       CollaborationCursor.configure({
-        provider,
+        provider: new WebrtcProvider("workspace-06", ydoc),
         onUpdate: (updatedUsers) => {
           console.log("updatedUsers", updatedUsers);
 
