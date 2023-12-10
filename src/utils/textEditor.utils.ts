@@ -1,5 +1,8 @@
 import { Editor } from "@tiptap/react";
 import { DOMSerializer } from "prosemirror-model";
+import * as Y from "yjs";
+import { WebrtcProvider } from "y-webrtc";
+
 import { ISelectOption } from "../types/app.type";
 
 export const textEditorIAFeatureOptions: ISelectOption[] = [
@@ -98,3 +101,14 @@ export const getTextEditorSelectedText = (
     to
   };
 };
+
+// A new Y document
+// Registered with a WebRTC provider
+export const getCollaborationProviderByRoom = (roomName: string) => {
+  const ydoc = new Y.Doc();
+  const provider = new WebrtcProvider(roomName, ydoc);
+  return {
+    provider,
+    ydoc
+  }
+}
