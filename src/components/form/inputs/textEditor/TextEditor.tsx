@@ -182,7 +182,7 @@ const extensions = [
 ];
 
 const ydoc = new Y.Doc();
-// const provider = new WebrtcProvider("workspace-04", ydoc);
+const provider = new WebrtcProvider("workspace-04", ydoc);
 
 const CustomCollaborationCursor = CollaborationCursor.extend({
   addOptions() {
@@ -257,13 +257,13 @@ const TextEditor = ({
         suggestion: getSuggestion(mentions)
       }),
       // colaboration
-      // CustomCollaborationCursor.configure({
-      //   provider,
-      //   user: currentUser
-      // }),
-      // Collaboration.configure({
-      //   document: ydoc
-      // }),
+      CustomCollaborationCursor.configure({
+        provider,
+        user: currentUser
+      }),
+      Collaboration.configure({
+        document: ydoc
+      }),
       ...extensions
     ],
     onUpdate: ({ editor }) => {
