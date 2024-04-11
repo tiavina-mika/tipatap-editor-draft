@@ -114,6 +114,12 @@ const MenuBar = ({
       icon: "bullet-list",
       onClick: () => editor.chain().focus().toggleBulletList().run(),
       disabled: !editor.can().chain().focus().toggleBulletList().run()
+    },
+    {
+      name: "orderedList",
+      icon: "ordered-list",
+      onClick: () => editor.chain().focus().toggleOrderedList().run(),
+      disabled: !editor.can().chain().focus().toggleOrderedList().run()
     }
   ];
 
@@ -144,7 +150,11 @@ const MenuBar = ({
             disabled={menu.disabled}
             css={classes.button(editor.isActive(menu.name))}
           >
-            <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
+            <img
+              alt={menu.name}
+              src={`/icons/${menu.icon || menu.name}.svg`}
+              // css={{ width: 24 }}
+            />
           </IconButton>
         ))}
 
