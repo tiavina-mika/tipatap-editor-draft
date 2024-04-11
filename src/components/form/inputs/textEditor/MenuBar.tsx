@@ -24,7 +24,10 @@ const classes = {
     height: 24,
     width: 24,
     padding: 18,
-    backgroundColor: isActive ? theme.palette.primary.light : "#fff"
+    backgroundColor: isActive ? theme.palette.primary.light : "#fff",
+    "&.Mui-disabled": {
+      opacity: 0.4
+    }
   }),
   bordered: (theme: Theme) => {
     const borderColor = theme.palette.grey[100];
@@ -167,6 +170,17 @@ const MenuBar = ({
       icon: "code",
       onClick: () => editor.chain().focus().toggleCodeBlock().run(),
       disabled: false,
+      split: true
+    },
+    {
+      name: "undo",
+      onClick: () => editor.chain().focus().undo().run(),
+      disabled: !editor.can().undo()
+    },
+    {
+      name: "redo",
+      onClick: () => editor.chain().focus().redo().run(),
+      disabled: !editor.can().redo(),
       split: true
     }
   ];
