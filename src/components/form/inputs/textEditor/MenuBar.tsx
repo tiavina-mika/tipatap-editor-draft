@@ -161,6 +161,13 @@ const MenuBar = ({
       disabled: false,
       active: { textAlign: "justify" },
       split: true
+    },
+    {
+      name: "codeBlock",
+      icon: "code",
+      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+      disabled: false,
+      split: true
     }
   ];
 

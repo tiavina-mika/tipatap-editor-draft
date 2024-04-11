@@ -2,7 +2,8 @@
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import "./textEditorStyles.css";
 
 import {
   useEditor,
@@ -28,6 +29,8 @@ import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import Collaboration from "@tiptap/extension-collaboration";
 import TextAlign from "@tiptap/extension-text-align";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { createLowlight, common } from "lowlight";
 
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
@@ -179,7 +182,8 @@ const extensions = [
       keepMarks: true,
       keepAttributes: false // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
     },
-    history: false // important because history will now be handled by Y.js
+    history: false, // important because history will now be handled by Y.js
+    codeBlock: false
   })
 ];
 
@@ -266,8 +270,13 @@ const TextEditor = ({
       Collaboration.configure({
         document: ydoc
       }),
+      // new
       TextAlign.configure({
         types: ["heading", "paragraph"]
+      }),
+      CodeBlockLowlight.configure({
+        lowlight: createLowlight(common),
+        defaultLanguage: "javascript"
       }),
       ...extensions
     ],
@@ -308,7 +317,7 @@ const TextEditor = ({
 
   return (
     <div
-      className={cx("positionRelative flexColumn", className)}
+      className={cx("positionRelative flexColumn tiptap", className)}
       css={classes.editorRoot}
     >
       <div className="positionRelative stretchSelf">
