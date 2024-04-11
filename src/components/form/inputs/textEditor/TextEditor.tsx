@@ -27,6 +27,8 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import Collaboration from "@tiptap/extension-collaboration";
+import TextAlign from "@tiptap/extension-text-align";
+
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
 import { WebrtcProvider } from "y-webrtc";
@@ -263,6 +265,9 @@ const TextEditor = ({
       }),
       Collaboration.configure({
         document: ydoc
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"]
       }),
       ...extensions
     ],

@@ -120,6 +120,36 @@ const MenuBar = ({
       icon: "ordered-list",
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
       disabled: !editor.can().chain().focus().toggleOrderedList().run()
+    },
+
+    // alignment
+    {
+      name: "align-left",
+      icon: "align-left",
+      onClick: () => editor.chain().focus().setTextAlign("left").run(),
+      disabled: false,
+      active: { textAlign: "left" }
+    },
+    {
+      name: "align-center",
+      icon: "align-center",
+      onClick: () => editor.chain().focus().setTextAlign("center").run(),
+      disabled: false,
+      active: { textAlign: "center" }
+    },
+    {
+      name: "align-right",
+      icon: "align-right",
+      onClick: () => editor.chain().focus().setTextAlign("right").run(),
+      disabled: false,
+      active: { textAlign: "right" }
+    },
+    {
+      name: "align-justify",
+      icon: "align-justify",
+      onClick: () => editor.chain().focus().setTextAlign("justify").run(),
+      disabled: false,
+      active: { textAlign: "justify" }
     }
   ];
 
@@ -148,7 +178,7 @@ const MenuBar = ({
             key={menu.name + index}
             onClick={menu.onClick}
             disabled={menu.disabled}
-            css={classes.button(editor.isActive(menu.name))}
+            css={classes.button(editor.isActive(menu.active || menu.name))}
           >
             <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
           </IconButton>
