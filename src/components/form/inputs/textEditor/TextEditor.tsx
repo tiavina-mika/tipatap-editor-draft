@@ -270,16 +270,16 @@ const TextEditor = ({
       const html = editor.getHTML();
       onChange?.(html);
     },
-    autofocus: "end",
+    // autofocus: "end",
     ...editorOptions
   });
 
-  useEffect(() => {
-    if (!editor?.chain().focus().user) return;
-    if (editor && currentUser) {
-      editor.chain().focus().user(currentUser).run();
-    }
-  }, [editor, currentUser]);
+  // useEffect(() => {
+  //   if (!editor?.chain().focus().user) return;
+  //   if (editor && currentUser) {
+  //     editor.chain().focus().user(currentUser).run();
+  //   }
+  // }, [editor, currentUser]);
 
   if (!editable) {
     return <EditorContent editor={editor} className={className} />;
