@@ -150,11 +150,7 @@ const MenuBar = ({
             disabled={menu.disabled}
             css={classes.button(editor.isActive(menu.name))}
           >
-            <img
-              alt={menu.name}
-              src={`/icons/${menu.icon || menu.name}.svg`}
-              // css={{ width: 24 }}
-            />
+            <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
           </IconButton>
         ))}
 
