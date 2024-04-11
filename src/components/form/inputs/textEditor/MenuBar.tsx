@@ -16,9 +16,10 @@ const classes = {
     border: "1px solid " + theme.palette.grey[100],
     borderLeft: "none" // because of sparkles button background
   }),
-  button: (isActive: boolean) => (theme: Theme) => ({
+  button: (isActive: boolean, split: boolean) => (theme: Theme) => ({
     borderRadius: 0,
     border: "none",
+    borderRight: split ? `1px solid ${theme.palette.grey[100]}` : "none",
     cursor: "pointer",
     height: 24,
     width: 24,
@@ -30,6 +31,12 @@ const classes = {
     return {
       borderRight: "1px solid " + borderColor,
       borderLeft: "1px solid " + borderColor
+    };
+  },
+  splittedBorder: (theme: Theme) => {
+    const borderColor = theme.palette.grey[100];
+    return {
+      borderRight: "1px solid " + borderColor
     };
   },
   tabsContainer: {
@@ -107,8 +114,10 @@ const MenuBar = ({
     {
       name: "underline",
       onClick: () => editor.chain().focus().toggleUnderline().run(),
-      disabled: !editor.can().chain().focus().toggleUnderline().run()
+      disabled: !editor.can().chain().focus().toggleUnderline().run(),
+      split: true
     },
+    // order
     {
       name: "bulletList",
       icon: "bullet-list",
@@ -119,7 +128,8 @@ const MenuBar = ({
       name: "orderedList",
       icon: "ordered-list",
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
-      disabled: !editor.can().chain().focus().toggleOrderedList().run()
+      disabled: !editor.can().chain().focus().toggleOrderedList().run(),
+      split: true
     },
 
     // alignment
@@ -149,7 +159,8 @@ const MenuBar = ({
       icon: "align-justify",
       onClick: () => editor.chain().focus().setTextAlign("justify").run(),
       disabled: false,
-      active: { textAlign: "justify" }
+      active: { textAlign: "justify" },
+      split: true
     }
   ];
 
@@ -178,7 +189,10 @@ const MenuBar = ({
             key={menu.name + index}
             onClick={menu.onClick}
             disabled={menu.disabled}
-            css={classes.button(editor.isActive(menu.active || menu.name))}
+            css={classes.button(
+              editor.isActive(menu.active || menu.name),
+              menu.split
+            )}
           >
             <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
           </IconButton>
