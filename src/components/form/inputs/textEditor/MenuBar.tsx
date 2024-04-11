@@ -166,6 +166,12 @@ const MenuBar = ({
       split: true
     },
     {
+      name: "blockquote",
+      icon: "quote",
+      onClick: () => editor.chain().focus().toggleBlockquote().run(),
+      disabled: false
+    },
+    {
       name: "codeBlock",
       icon: "code",
       onClick: () => editor.chain().focus().toggleCodeBlock().run(),

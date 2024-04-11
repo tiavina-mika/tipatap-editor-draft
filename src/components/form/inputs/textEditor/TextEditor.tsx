@@ -72,7 +72,8 @@ const classes = {
       padding: "4px 5px",
       fontFamily: "Product Sans Regular",
       fontWeight: 300
-    }
+    },
+    "& .": {}
   }),
   input: (theme: Theme, editable = true) =>
     css({
