@@ -88,6 +88,35 @@ const MenuBar = ({
     toggleIAFeatures();
   };
 
+  const menus = [
+    {
+      name: "bold",
+      onClick: () => editor.chain().focus().toggleBold().run(),
+      disabled: !editor.can().chain().focus().toggleBold().run()
+    },
+    {
+      name: "italic",
+      onClick: () => editor.chain().focus().toggleItalic().run(),
+      disabled: !editor.can().chain().focus().toggleItalic().run()
+    },
+    {
+      name: "strike",
+      onClick: () => editor.chain().focus().toggleStrike().run(),
+      disabled: !editor.can().chain().focus().toggleStrike().run()
+    },
+    {
+      name: "underline",
+      onClick: () => editor.chain().focus().toggleUnderline().run(),
+      disabled: !editor.can().chain().focus().toggleUnderline().run()
+    },
+    {
+      name: "bulletList",
+      icon: "bullet-list",
+      onClick: () => editor.chain().focus().toggleBulletList().run(),
+      disabled: !editor.can().chain().focus().toggleBulletList().run()
+    }
+  ];
+
   return (
     <div>
       {openIAFeatures && (
@@ -108,44 +137,17 @@ const MenuBar = ({
           disabled={!enableIA}
           // isWriting
         />
-        <IconButton
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          disabled={!editor.can().chain().focus().toggleBold().run()}
-          css={classes.button(editor.isActive("bold"))}
-        >
-          <img alt="bold" src="/icons/bold.svg" />
-        </IconButton>
-        <IconButton
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          disabled={!editor.can().chain().focus().toggleItalic().run()}
-          css={classes.button(editor.isActive("italic"))}
-        >
-          <img alt="italic" src="/icons/italic.svg" />
-        </IconButton>
-        <IconButton
-          onClick={() => editor.chain().focus().toggleStrike().run()}
-          disabled={!editor.can().chain().focus().toggleStrike().run()}
-          css={classes.button(editor.isActive("strike"))}
-        >
-          <img alt="strike" src="/icons/strike.svg" />
-        </IconButton>
-        <IconButton
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
-          disabled={!editor.can().chain().focus().toggleUnderline().run()}
-          css={classes.button(editor.isActive("underline"))}
-        >
-          <img alt="underline" src="/icons/underline.svg" />
-        </IconButton>
-        <IconButton
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          disabled={!editor.can().chain().focus().toggleBulletList().run()}
-          css={[
-            classes.button(editor.isActive("bulletList")),
-            classes.bordered
-          ]}
-        >
-          <img alt="bullet-list" src="/icons/bullet-list.svg" />
-        </IconButton>
+        {menus.map((menu, index) => (
+          <IconButton
+            key={menu.name + index}
+            onClick={menu.onClick}
+            disabled={menu.disabled}
+            css={classes.button(editor.isActive(menu.name))}
+          >
+            <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
+          </IconButton>
+        ))}
+
         <LinkButton
           editor={editor}
           css={[classes.button(editor.isActive("link")), classes.bordered]}
