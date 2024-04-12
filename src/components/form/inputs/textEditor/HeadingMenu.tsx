@@ -13,6 +13,14 @@ const options = [
   {
     value: 3,
     label: "H3"
+  },
+  {
+    value: 4,
+    label: "H3"
+  },
+  {
+    value: 5,
+    label: "H3"
   }
 ];
 
@@ -44,7 +52,7 @@ const HeadingMenu = ({ editor, anchorEl, onClose }: Props) => {
           onClick={() => handleSelectHeading(option.value)}
           css={{
             backgroundColor: editor.isActive("heading", { level: option.value })
-              ? "red"
+              ? "gray"
               : "transparent"
           }}
         >
