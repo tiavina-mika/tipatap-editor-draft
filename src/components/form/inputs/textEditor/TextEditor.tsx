@@ -170,6 +170,14 @@ const extensions = [
   Underline,
   // SelectedText,
   Link.configure({
+    protocols: [
+      "https",
+      "mailto",
+      {
+        scheme: "tel",
+        optionalSlashes: true
+      }
+    ],
     HTMLAttributes: {
       // Change rel to different value
       // Allow search engines to follow links(remove nofollow)

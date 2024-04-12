@@ -13,11 +13,17 @@ import { Editor } from "@tiptap/react";
 import { ChangeEvent, useState } from "react";
 import { z } from "zod";
 
-const linkSchemaField = z
-  .string()
-  .url()
-  .startsWith("https://", { message: "Must provide secure URL" })
-  .min(10, { message: "Must be 10 or more characters long" });
+const linkSchemaField = z.union([
+  z
+    .string()
+    .url()
+    .startsWith("https://", { message: "Must provide secure URL" }),
+  z
+    .string()
+    .url()
+    .startsWith("mailto://", { message: "Must provide secure URL" }),
+  z.string().startsWith("+")
+]);
 
 type Props = {
   editor: Editor;
@@ -40,7 +46,7 @@ const LinkDialog = ({ editor, open, onClose }: Props) => {
   const handleConfirm = () => {
     const result = linkSchemaField.safeParse(link);
     if (!result.success) {
-      const error = JSON.parse((result as any).error?.message)
+      const error = JSON.parse((result as any).error?.message);
       setError(error[0]?.message);
       return;
     }
