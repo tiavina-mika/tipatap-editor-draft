@@ -94,6 +94,7 @@ const MenuBar = ({
   const theme = useTheme();
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
+  const { open: openLinkDialog, toggle: toggleLinkDialog } = useToggle();
   const [tableAnchorEl, setTableAnchorEl] = useState<null | HTMLElement>(null);
   const [headingAnchorEl, setHeadingAnchorEl] = useState<null | HTMLElement>(
     null
@@ -151,7 +152,12 @@ const MenuBar = ({
     {
       name: "underline",
       onClick: () => editor.chain().focus().toggleUnderline().run(),
-      disabled: !editor.can().chain().focus().toggleUnderline().run(),
+      disabled: !editor.can().chain().focus().toggleUnderline().run()
+    },
+    {
+      name: "link",
+      onClick: toggleLinkDialog,
+      disabled: false,
       split: true
     },
     // order
@@ -272,7 +278,9 @@ const MenuBar = ({
         {/* link */}
         <LinkButton
           editor={editor}
-          css={[classes.button(editor.isActive("link")), classes.bordered]}
+          open={openLinkDialog}
+          onClose={toggleLinkDialog}
+          // css={[classes.button(editor.isActive("link")), classes.bordered]}
         />
 
         {/* mention */}

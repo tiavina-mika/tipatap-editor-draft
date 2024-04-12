@@ -21,10 +21,10 @@ const linkSchemaField = z
 
 type Props = {
   editor: Editor;
-  className?: string;
+  open: boolean;
+  onClose: () => void;
 };
-const LinkButton = ({ editor, className }: Props) => {
-  const [openLinkDialog, setOpenLinkDialog] = useState<boolean>(false);
+const LinkButton = ({ editor, open, onClose }: Props) => {
   const [link, setLink] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -36,8 +36,6 @@ const LinkButton = ({ editor, className }: Props) => {
     const { value } = event.target;
     setLink(value);
   };
-
-  const toggleLinkDialog = () => setOpenLinkDialog(!openLinkDialog);
 
   const handleConfirm = () => {
     const validation = linkSchemaField.safeParse(link);
@@ -61,24 +59,24 @@ const LinkButton = ({ editor, className }: Props) => {
     (editor.commands as any).setLink({ href: link });
     setError("");
     setLink("");
-    toggleLinkDialog();
+    onClose();
   };
 
   const handleCancel = () => {
     (editor.commands as any).unsetLink();
     setError("");
     setLink("");
-    toggleLinkDialog();
+    onClose();
   };
 
   return (
     <Fragment>
-      <IconButton onClick={toggleLinkDialog} className={className}>
+      {/* <IconButton onClick={onClose} className={className}>
         <img alt="link" src="/icons/link.svg" />
-      </IconButton>
+      </IconButton> */}
       <Dialog
-        open={openLinkDialog}
-        onClose={toggleLinkDialog}
+        open={open}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
