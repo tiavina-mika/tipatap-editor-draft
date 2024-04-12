@@ -3,7 +3,7 @@
 /** @jsxImportSource @emotion/react */
 import { Theme, jsx } from "@emotion/react";
 import { useState } from "react";
-import "./textEditorStyles.css";
+import "./textEditorStyles.scss";
 
 import {
   useEditor,
@@ -29,6 +29,10 @@ import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import Collaboration from "@tiptap/extension-collaboration";
 import TextAlign from "@tiptap/extension-text-align";
+import Table from "@tiptap/extension-table";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
 import { createLowlight, common } from "lowlight";
 
@@ -185,7 +189,13 @@ const extensions = [
     },
     history: false, // important because history will now be handled by Y.js
     codeBlock: false
-  })
+  }),
+  Table.configure({
+    resizable: true
+  }),
+  TableRow,
+  TableHeader,
+  TableCell
 ];
 
 const ydoc = new Y.Doc();

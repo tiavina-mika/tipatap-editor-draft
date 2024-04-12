@@ -1,11 +1,7 @@
 import { Editor } from "@tiptap/react";
-import { useState } from "react";
-import {
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Menu, MenuItem, Fade } from "@mui/material";
 
-const getTableMenus = ({ editor }: any) => [
+const getTableMenus = (editor: Editor) => [
   {
     // id: 1,
     name: "Insert Table",
@@ -86,30 +82,51 @@ const getTableMenus = ({ editor }: any) => [
 type Props = {
   editor: Editor;
   className?: string;
+  anchorEl: null | HTMLElement;
+  onClose: () => void;
 };
-const TableButton = ({ editor, className }: Props) => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+const TableMenu = ({ editor, anchorEl, onClose }: Props) => {
+  // const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const handleSelectIndex = (value) => {
-    setSelectedIndex(value);
-    const currentOption = getTableMenus(editor).find((_, index) => index === value);
-    if (!currentOption) return;
-    currentOption.action();
-  };
+  // const handleClick = (event: MouseEvent<HTMLElement>) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   return (
-    <Select
-      labelId="table-button-label-id"
-      id="table-button"
-      value={selectedIndex}
-      onChange={handleSelectIndex}
-      // label="Age"
-    >
-      {getTableMenus(editor).map((menu, index) => (
-        <MenuItem value={index} key={index}>{menu.name}</MenuItem>
-      ))}
-    </Select>
+    <>
+      {/* <IconButton
+        key={menu.name + index}
+        onClick={menu.onClick}
+        disabled={menu.disabled}
+        css={classes.button(
+          editor.isActive(menu.active || menu.name),
+          menu.split
+        )}
+      >
+        <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
+      </IconButton> */}
+      <Menu
+        id="select-table-menu"
+        MenuListProps={{
+          "aria-labelledby": "select-table-button"
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={onClose}
+        TransitionComponent={Fade}
+      >
+        {getTableMenus(editor).map((menu, index) => (
+          <MenuItem value={index} key={index} onClick={menu.action}>
+            {menu.name}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
   );
-}
+};
 
-export default TableButton;
+export default TableMenu;

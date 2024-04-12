@@ -5,11 +5,14 @@ import { Theme, jsx } from "@emotion/react";
 import { css } from "@emotion/css";
 import { IconButton, useTheme } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import LinkButton from "./LinkButton";
+import { useState, MouseEvent } from "react";
+
 import { useToggle } from "../../../../hooks/useToggle";
 import Tabs from "../../../Tabs";
 import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
 import AIButton from "./AIButton";
+import TableMenu from "./TableMenu";
+import LinkButton from "./LinkButton";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -74,8 +77,6 @@ const classes = {
     })
 };
 
-
-
 type Props = {
   editor: Editor;
   className: string;
@@ -94,6 +95,14 @@ const MenuBar = ({
   const theme = useTheme();
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
+  const [tableAnchorEl, setTableAnchorEl] = useState<null | HTMLElement>(null);
+  // const open = Boolean(anchorEl);
+  const handleOpenTableMenu = (event: MouseEvent<HTMLElement>) => {
+    setTableAnchorEl(event.currentTarget);
+  };
+  const handleCloseTableMenu = () => {
+    setTableAnchorEl(null);
+  };
 
   const handleSelectTab = (tab: string) => {
     onSelectIAFeature(tab);
@@ -181,6 +190,19 @@ const MenuBar = ({
       split: true
     },
     {
+      name: "table",
+      onClick: (event: MouseEvent<HTMLElement>) => {
+        editor
+          .chain()
+          .focus()
+          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+          .run();
+        handleOpenTableMenu(event);
+      },
+      disabled: false,
+      split: true
+    },
+    {
       name: "undo",
       onClick: () => editor.chain().focus().undo().run(),
       disabled: !editor.can().undo()
@@ -238,6 +260,12 @@ const MenuBar = ({
         >
           <img alt="mention" src="/icons/mention.svg" />
         </IconButton>
+
+        <TableMenu
+          editor={editor}
+          anchorEl={tableAnchorEl}
+          onClose={handleCloseTableMenu}
+        />
         {/* 
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
