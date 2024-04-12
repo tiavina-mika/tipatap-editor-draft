@@ -14,7 +14,7 @@ import AIButton from "./AIButton";
 import TableMenuDialog from "./TableMenuDialog";
 import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
-import ColorButton from "./ColorButton";
+import ColorPicker from "./ColorPicker";
 import YoutubeDialog from "./YoutubeDialog";
 
 const classes = {
@@ -297,7 +297,7 @@ const MenuBar = ({
           onClose={toggleYoutubeDialog}
         />
         {/* color picker */}
-        <ColorButton editor={editor} />
+        <ColorPicker editor={editor} />
 
         {/* table menu to be opened */}
         <TableMenuDialog

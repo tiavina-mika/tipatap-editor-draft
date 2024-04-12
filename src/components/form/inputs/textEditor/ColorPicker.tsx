@@ -30,7 +30,7 @@ const classes = {
 type Props = {
   editor: Editor;
 };
-const ColorButton = ({ editor }: Props) => {
+const ColorPicker = ({ editor }: Props) => {
   const handleInput = (event) => {
     editor.chain().focus().setColor(event.target.value).run();
   };
@@ -50,4 +50,4 @@ const ColorButton = ({ editor }: Props) => {
   );
 };
 
-export default ColorButton;
+export default ColorPicker;
