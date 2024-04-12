@@ -5,6 +5,7 @@ import { jsx } from "@emotion/react";
 import { Editor } from "@tiptap/react";
 
 import { Stack, Typography } from "@mui/material";
+import { ChangeEvent } from "react";
 
 const classes = {
   color: {
@@ -30,7 +31,7 @@ type Props = {
   editor: Editor;
 };
 const ColorPicker = ({ editor }: Props) => {
-  const handleInput = (event) => {
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     editor.chain().focus().setColor(event.target.value).run();
   };
 
