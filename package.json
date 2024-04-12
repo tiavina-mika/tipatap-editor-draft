@@ -10,6 +10,7 @@
     "@tiptap/extension-collaboration": "2.1.13",
     "@tiptap/extension-collaboration-cursor": "2.1.13",
     "@tiptap/extension-color": "2.3.0",
+    "@tiptap/extension-gapcursor": "2.3.0",
     "@tiptap/extension-link": "2.1.12",
     "@tiptap/extension-mention": "2.1.12",
     "@tiptap/extension-placeholder": "2.1.12",

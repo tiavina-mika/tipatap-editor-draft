@@ -28,6 +28,7 @@ import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
 import Mention from "@tiptap/extension-mention";
 import Collaboration from "@tiptap/extension-collaboration";
+import Gapcursor from "@tiptap/extension-gapcursor";
 import TextAlign from "@tiptap/extension-text-align";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -203,7 +204,8 @@ const extensions = [
   }),
   TableRow,
   TableHeader,
-  TableCell
+  TableCell,
+  Gapcursor
 ];
 
 const ydoc = new Y.Doc();
