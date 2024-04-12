@@ -16,6 +16,7 @@ import { z } from "zod";
 const linkSchemaField = z
   .string()
   .url()
+  .startsWith("https://", { message: "Must provide secure URL" })
   .min(10, { message: "Must be 10 or more characters long" });
 
 type Props = {
@@ -37,9 +38,10 @@ const LinkDialog = ({ editor, open, onClose }: Props) => {
   };
 
   const handleConfirm = () => {
-    const validation = linkSchemaField.safeParse(link);
-    if (!validation.success) {
-      setError("Lien invalide");
+    const result = linkSchemaField.safeParse(link);
+    if (!result.success) {
+      const error = JSON.parse((result as any).error?.message)
+      setError(error[0]?.message);
       return;
     }
 
