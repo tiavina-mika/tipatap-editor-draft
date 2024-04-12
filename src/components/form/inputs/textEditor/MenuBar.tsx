@@ -34,13 +34,6 @@ const classes = {
       opacity: 0.4
     }
   }),
-  bordered: (theme: Theme) => {
-    const borderColor = theme.palette.grey[100];
-    return {
-      borderRight: "1px solid " + borderColor,
-      borderLeft: "1px solid " + borderColor
-    };
-  },
   splittedBorder: (theme: Theme) => {
     const borderColor = theme.palette.grey[100];
     return {
