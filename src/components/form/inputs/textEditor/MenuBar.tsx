@@ -13,6 +13,7 @@ import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
 import AIButton from "./AIButton";
 import TableMenu from "./TableMenu";
 import LinkButton from "./LinkButton";
+import HeadingMenu from "./HeadingMenu";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -96,12 +97,22 @@ const MenuBar = ({
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
   const [tableAnchorEl, setTableAnchorEl] = useState<null | HTMLElement>(null);
-  // const open = Boolean(anchorEl);
+  const [headingAnchorEl, setHeadingAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
+
   const handleOpenTableMenu = (event: MouseEvent<HTMLElement>) => {
     setTableAnchorEl(event.currentTarget);
   };
   const handleCloseTableMenu = () => {
     setTableAnchorEl(null);
+  };
+
+  const handleOpenHeadingMenu = (event: MouseEvent<HTMLElement>) => {
+    setHeadingAnchorEl(event.currentTarget);
+  };
+  const handleCloseHeadingMenu = () => {
+    setHeadingAnchorEl(null);
   };
 
   const handleSelectTab = (tab: string) => {
@@ -110,6 +121,20 @@ const MenuBar = ({
   };
 
   const menus = [
+    {
+      name: "heading",
+      icon: "title",
+      onClick: handleOpenHeadingMenu,
+      isActive:
+        editor.isActive("heading", { level: 1 }) ||
+        editor.isActive("heading", { level: 2 }) ||
+        editor.isActive("heading", { level: 3 }) ||
+        editor.isActive("heading", { level: 4 }) ||
+        editor.isActive("heading", { level: 5 }) ||
+        editor.isActive("heading", { level: 6 }),
+      disabled: false,
+      split: true
+    },
     {
       name: "bold",
       onClick: () => editor.chain().focus().toggleBold().run(),
@@ -241,7 +266,8 @@ const MenuBar = ({
             onClick={menu.onClick}
             disabled={menu.disabled}
             css={classes.button(
-              editor.isActive(menu.active || menu.name),
+              // the oreder is important
+              editor.isActive(menu.isActive || menu.active || menu.name),
               menu.split
             )}
           >
@@ -264,10 +290,18 @@ const MenuBar = ({
           <img alt="mention" src="/icons/mention.svg" />
         </IconButton>
 
+        {/* table menu to be opened */}
         <TableMenu
           editor={editor}
           anchorEl={tableAnchorEl}
           onClose={handleCloseTableMenu}
+        />
+
+        {/* table menu to be opened */}
+        <HeadingMenu
+          editor={editor}
+          anchorEl={headingAnchorEl}
+          onClose={handleCloseHeadingMenu}
         />
         {/* 
         <button

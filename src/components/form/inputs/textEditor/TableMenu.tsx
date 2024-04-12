@@ -1,7 +1,11 @@
 import { Editor } from "@tiptap/react";
 import { Menu, MenuItem, Fade } from "@mui/material";
 
-const getTableMenus = (editor: Editor) => [
+type IOption = {
+  label: string;
+  action: () => void;
+};
+const getTableMenus = (editor: Editor): IOption[] => [
   {
     label: "Insert Table",
     action: () =>
@@ -72,7 +76,10 @@ type Props = {
   onClose: () => void;
 };
 const TableMenu = ({ editor, anchorEl, onClose }: Props) => {
-  const open = Boolean(anchorEl);
+  const handleClick = (menu: IOption) => {
+    menu.action();
+    onClose();
+  };
 
   return (
     <Menu
@@ -81,12 +88,12 @@ const TableMenu = ({ editor, anchorEl, onClose }: Props) => {
         "aria-labelledby": "select-table-button"
       }}
       anchorEl={anchorEl}
-      open={open}
+      open={Boolean(anchorEl)}
       onClose={onClose}
       TransitionComponent={Fade}
     >
       {getTableMenus(editor).map((menu, index) => (
-        <MenuItem value={index} key={index} onClick={menu.action}>
+        <MenuItem value={index} key={index} onClick={() => handleClick(menu)}>
           {menu.label}
         </MenuItem>
       ))}
