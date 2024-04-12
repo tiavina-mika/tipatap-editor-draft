@@ -35,6 +35,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import Youtube from "@tiptap/extension-youtube";
 import { createLowlight, common } from "lowlight";
 
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
@@ -205,7 +206,8 @@ const extensions = [
   TableRow,
   TableHeader,
   TableCell,
-  Gapcursor
+  Gapcursor,
+  Youtube
 ];
 
 const ydoc = new Y.Doc();

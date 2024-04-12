@@ -15,6 +15,7 @@ import TableMenu from "./TableMenu";
 import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
 import ColorButton from "./ColorButton";
+import YoutubeDialog from "./YoutubeDialog";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -95,6 +96,7 @@ const MenuBar = ({
 
   const { open: openIAFeatures, toggle: toggleIAFeatures } = useToggle();
   const { open: openLinkDialog, toggle: toggleLinkDialog } = useToggle();
+  const { open: openYoutubeDialog, toggle: toggleYoutubeDialog } = useToggle();
   const [tableAnchorEl, setTableAnchorEl] = useState<null | HTMLElement>(null);
   const [headingAnchorEl, setHeadingAnchorEl] = useState<null | HTMLElement>(
     null
@@ -174,7 +176,6 @@ const MenuBar = ({
       disabled: !editor.can().chain().focus().toggleOrderedList().run(),
       split: true
     },
-
     // alignment
     {
       name: "align-left",
@@ -232,6 +233,12 @@ const MenuBar = ({
       split: true
     },
     {
+      name: "youtube",
+      onClick: toggleYoutubeDialog,
+      disabled: false,
+      split: true
+    },
+    {
       name: "undo",
       onClick: () => editor.chain().focus().undo().run(),
       disabled: !editor.can().undo()
@@ -275,14 +282,6 @@ const MenuBar = ({
           </IconButton>
         ))}
 
-        {/* link */}
-        <LinkDialog
-          editor={editor}
-          open={openLinkDialog}
-          onClose={toggleLinkDialog}
-          // css={[classes.button(editor.isActive("link")), classes.bordered]}
-        />
-
         {/* mention */}
         <IconButton
           onClick={() => {
@@ -291,6 +290,13 @@ const MenuBar = ({
         >
           <img alt="mention" src="/icons/mention.svg" />
         </IconButton>
+
+        {/* youtube dialog */}
+        <YoutubeDialog
+          editor={editor}
+          open={openYoutubeDialog}
+          onClose={toggleYoutubeDialog}
+        />
         {/* color picker */}
         <ColorButton editor={editor} />
 
