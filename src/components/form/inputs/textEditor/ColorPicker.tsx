@@ -3,7 +3,6 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
 import { Editor } from "@tiptap/react";
-import { useState } from "react";
 
 import { Stack, Typography } from "@mui/material";
 
