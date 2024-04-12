@@ -14,6 +14,7 @@ import AIButton from "./AIButton";
 import TableMenu from "./TableMenu";
 import LinkButton from "./LinkButton";
 import HeadingMenu from "./HeadingMenu";
+import ColorButton from "./ColorButton";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -251,11 +252,8 @@ const MenuBar = ({
       )}
 
       <div className={className} css={classes.menu}>
-        <AIButton
-          onClick={toggleIAFeatures}
-          disabled={!enableIA}
-          // isWriting
-        />
+        <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
+        {/* other options */}
         {menus.map((menu, index) => (
           <IconButton
             key={menu.name + index}
@@ -285,6 +283,8 @@ const MenuBar = ({
         >
           <img alt="mention" src="/icons/mention.svg" />
         </IconButton>
+        {/* color picker */}
+        <ColorButton editor={editor} />
 
         {/* table menu to be opened */}
         <TableMenu
