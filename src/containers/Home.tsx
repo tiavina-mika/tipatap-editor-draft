@@ -77,7 +77,7 @@ const Home = () => {
           contentClassName="flexColumn flex1"
         >
           <TextEditorField
-            className="flexColumn spaceBetween stretchSelf flex1"
+            className="flexColumn stretchSelf flex1"
             name="description"
             label="Description"
             placeholder="Provide as much information as possible. This field has only one limit, yours."

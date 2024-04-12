@@ -48,7 +48,6 @@ import {
   ISelectOption,
   ITextEditorCollaborationUser
 } from "../../../../types/app.type";
-import { LAYOUT_CONTENT_PADDING_X } from "../../../../utils/constants";
 import {
   getTextEditorInitialUser,
   getTextEditorSelectedText
@@ -114,15 +113,6 @@ const classes = {
     padding: "4px 3px",
     marginLeft: 12,
     top: -8
-  }),
-  menu: (theme: Theme) => ({
-    [theme.breakpoints.down("md")]: {
-      position: "absolute" as const,
-      bottom: 0,
-      left: -LAYOUT_CONTENT_PADDING_X,
-      right: -LAYOUT_CONTENT_PADDING_X,
-      maxWidth: `calc(100vw + ${LAYOUT_CONTENT_PADDING_X / 2}px)`
-    }
   })
 };
 
@@ -349,32 +339,28 @@ const TextEditor = ({
             {error}
           </FormHelperText>
         )}
-        {/* number of user online */}
-        {editor && (
-          <div css={{ paddingTop: 6, padddingBottom: 6 }}>
-            <Typography variant="body1">
-              {editor.storage.collaborationCursor?.users.length} user
-              {editor.storage.collaborationCursor?.users.length === 1
-                ? ""
-                : "s"}{" "}
-              online
-            </Typography>
-          </div>
-        )}
       </div>
 
       {editor && (
-        <div
-          css={classes.menu}
-          className={cx("positionAbsolute", menuClassName)}
-        >
-          <MenuBar
-            editor={editor}
-            onSelectIAFeature={handleSelectIAFeature(editor)}
-            selectedIAFeature={selectedIAFeature}
-            className="stretchSelf flexRow"
-            enableIA={!!getTextEditorSelectedText(editor)}
-          />
+        <MenuBar
+          editor={editor}
+          onSelectIAFeature={handleSelectIAFeature(editor)}
+          selectedIAFeature={selectedIAFeature}
+          className="stretchSelf flexRow"
+          enableIA={!!getTextEditorSelectedText(editor)}
+        />
+      )}
+
+      {/* number of user online */}
+      {editor && (
+        <div css={{ paddingTop: 6, padddingBottom: 6 }}>
+          <Typography variant="body1">
+            {editor.storage.collaborationCursor?.users.length} user
+            {editor.storage.collaborationCursor?.users.length === 1
+              ? ""
+              : "s"}{" "}
+            online
+          </Typography>
         </div>
       )}
     </div>
