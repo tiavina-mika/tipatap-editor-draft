@@ -11,7 +11,7 @@ import { useToggle } from "../../../../hooks/useToggle";
 import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
 import Tabs from "../../../Tabs";
 import AIButton from "./AIButton";
-import TableMenu from "./TableMenu";
+import TableMenuDialog from "./TableMenuDialog";
 import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
 import ColorButton from "./ColorButton";
@@ -300,7 +300,7 @@ const MenuBar = ({
         <ColorButton editor={editor} />
 
         {/* table menu to be opened */}
-        <TableMenu
+        <TableMenuDialog
           editor={editor}
           anchorEl={tableAnchorEl}
           onClose={handleCloseTableMenu}
