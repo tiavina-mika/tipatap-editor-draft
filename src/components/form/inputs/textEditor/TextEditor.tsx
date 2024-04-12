@@ -77,8 +77,7 @@ const classes = {
       padding: "4px 5px",
       fontFamily: "Product Sans Regular",
       fontWeight: 300
-    },
-    "& .": {}
+    }
   }),
   input: (theme: Theme, editable = true) =>
     css({
@@ -334,11 +333,6 @@ const TextEditor = ({
         {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
         {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
         <EditorContent editor={editor} css={classes.editor} />
-        {error && (
-          <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
-            {error}
-          </FormHelperText>
-        )}
       </div>
 
       {editor && (
@@ -350,7 +344,12 @@ const TextEditor = ({
           enableIA={!!getTextEditorSelectedText(editor)}
         />
       )}
-
+      {/* error */}
+      {error && (
+        <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
+          {error}
+        </FormHelperText>
+      )}
       {/* number of user online */}
       {editor && (
         <div css={{ paddingTop: 6, padddingBottom: 6 }}>
