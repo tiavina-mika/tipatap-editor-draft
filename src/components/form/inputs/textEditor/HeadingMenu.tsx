@@ -1,7 +1,12 @@
 import { Editor } from "@tiptap/react";
 import { Menu, MenuItem, Fade } from "@mui/material";
+import { Level } from "@tiptap/extension-heading";
 
-const options = [
+import { ISelectOption } from "../../../../types/app.type";
+
+type IOption = ISelectOption<Level>;
+
+const options: IOption[] = [
   {
     value: 1,
     label: "H1"
@@ -16,11 +21,15 @@ const options = [
   },
   {
     value: 4,
-    label: "H3"
+    label: "H4"
   },
   {
     value: 5,
-    label: "H3"
+    label: "H5"
+  },
+  {
+    value: 6,
+    label: "H6"
   }
 ];
 
@@ -30,7 +39,7 @@ type Props = {
   onClose: () => void;
 };
 const HeadingMenu = ({ editor, anchorEl, onClose }: Props) => {
-  const handleSelectHeading = (heading: number) => {
+  const handleSelectHeading = (heading: Level) => {
     editor.chain().focus().toggleHeading({ level: heading }).run();
     onClose();
   };
