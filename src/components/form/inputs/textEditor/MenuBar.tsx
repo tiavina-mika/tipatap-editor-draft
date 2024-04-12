@@ -8,8 +8,8 @@ import { Editor } from "@tiptap/react";
 import { useState, MouseEvent } from "react";
 
 import { useToggle } from "../../../../hooks/useToggle";
-import Tabs from "../../../Tabs";
 import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
+import Tabs from "../../../Tabs";
 import AIButton from "./AIButton";
 import TableMenu from "./TableMenu";
 import LinkButton from "./LinkButton";
@@ -50,9 +50,6 @@ const classes = {
     height: "auto",
     borderBottom: "none"
   },
-  tabsContent: css({
-    // maxWidth: "100vw"
-  }),
   tabs: (theme: Theme) =>
     css({
       "& .MuiTabs-flexContainer": {
@@ -250,7 +247,6 @@ const MenuBar = ({
           tabsClassName={classes.tabs(theme)}
           tabClassName={classes.tab(theme)}
           css={classes.tabsContainer}
-          tabsContainerClassName={classes.tabsContent}
         />
       )}
 
