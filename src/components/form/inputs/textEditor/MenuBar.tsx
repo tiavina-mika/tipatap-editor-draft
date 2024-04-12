@@ -12,7 +12,7 @@ import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
 import Tabs from "../../../Tabs";
 import AIButton from "./AIButton";
 import TableMenu from "./TableMenu";
-import LinkButton from "./LinkButton";
+import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
 import ColorButton from "./ColorButton";
 
@@ -276,7 +276,7 @@ const MenuBar = ({
         ))}
 
         {/* link */}
-        <LinkButton
+        <LinkDialog
           editor={editor}
           open={openLinkDialog}
           onClose={toggleLinkDialog}

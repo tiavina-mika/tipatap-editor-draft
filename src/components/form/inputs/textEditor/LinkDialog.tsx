@@ -24,7 +24,7 @@ type Props = {
   open: boolean;
   onClose: () => void;
 };
-const LinkButton = ({ editor, open, onClose }: Props) => {
+const LinkDialog = ({ editor, open, onClose }: Props) => {
   const [link, setLink] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -103,4 +103,4 @@ const LinkButton = ({ editor, open, onClose }: Props) => {
   );
 };
 
-export default LinkButton;
+export default LinkDialog;
