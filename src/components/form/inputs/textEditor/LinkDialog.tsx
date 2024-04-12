@@ -10,7 +10,7 @@ import {
   TextField
 } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { z } from "zod";
 
 const linkSchemaField = z
