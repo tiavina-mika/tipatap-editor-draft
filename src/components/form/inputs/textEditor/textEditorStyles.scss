@@ -130,6 +130,37 @@
       margin: 0;
     }
   }
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+  iframe {
+    border: 8px solid #000;
+    border-radius: 4px;
+    min-width: 200px;
+    min-height: 200px;
+    display: block;
+    outline: 0px solid transparent;
+  }
+
+  div[data-youtube-video] {
+    cursor: move;
+    padding-right: 24px;
+  }
+
+  .ProseMirror-selectednode iframe {
+    transition: outline 0.15s;
+    outline: 6px solid #ece111;
+  }
 }
 
 .tableWrapper {
