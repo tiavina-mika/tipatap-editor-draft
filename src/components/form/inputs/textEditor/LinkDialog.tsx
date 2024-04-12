@@ -7,7 +7,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  IconButton,
   TextField
 } from "@mui/material";
 import { Editor } from "@tiptap/react";
@@ -70,36 +69,31 @@ const LinkDialog = ({ editor, open, onClose }: Props) => {
   };
 
   return (
-    <Fragment>
-      {/* <IconButton onClick={onClose} className={className}>
-        <img alt="link" src="/icons/link.svg" />
-      </IconButton> */}
-      <Dialog
-        open={open}
-        onClose={onClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogContent>
-          <TextField
-            placeholder="Lien"
-            variant="standard"
-            type="url"
-            fullWidth
-            onChange={handleChangeLink}
-            value={link}
-            error={!!error}
-            helperText={error}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancel}>Annuler</Button>
-          <Button onClick={handleConfirm} variant="contained" autoFocus>
-            Ok
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Fragment>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogContent>
+        <TextField
+          placeholder="Lien"
+          variant="standard"
+          type="url"
+          fullWidth
+          onChange={handleChangeLink}
+          value={link}
+          error={!!error}
+          helperText={error}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>Annuler</Button>
+        <Button onClick={handleConfirm} variant="contained" autoFocus>
+          Ok
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
