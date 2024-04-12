@@ -249,10 +249,13 @@ const MenuBar = ({
           </IconButton>
         ))}
 
+        {/* link */}
         <LinkButton
           editor={editor}
           css={[classes.button(editor.isActive("link")), classes.bordered]}
         />
+
+        {/* mention */}
         <IconButton
           onClick={() => {
             editor.chain().focus().insertContent("@").run();
