@@ -196,7 +196,14 @@ const extensions = [
   TableHeader,
   TableCell,
   Gapcursor,
-  Youtube
+  Youtube,
+  TextAlign.configure({
+    types: ["heading", "paragraph"]
+  }),
+  CodeBlockLowlight.configure({
+    lowlight: createLowlight(common),
+    defaultLanguage: "javascript"
+  })
 ];
 
 const ydoc = new Y.Doc();
@@ -281,14 +288,6 @@ const TextEditor = ({
       }),
       Collaboration.configure({
         document: ydoc
-      }),
-      // new
-      TextAlign.configure({
-        types: ["heading", "paragraph"]
-      }),
-      CodeBlockLowlight.configure({
-        lowlight: createLowlight(common),
-        defaultLanguage: "javascript"
       }),
       ...extensions
     ],
