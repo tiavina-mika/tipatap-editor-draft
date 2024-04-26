@@ -179,7 +179,10 @@ export const defaultEditorToolbar: IEditorToolbar[] = [
 ];
 
 // menus to display
-export const showToolbarMenu = (toolbar: IEditorToolbar[], menu): boolean => {
+export const showTextEditorToolbarMenu = (
+  toolbar: IEditorToolbar[],
+  menu
+): boolean => {
   return !!toolbar?.find((t: IEditorToolbar) => {
     if (typeof menu === "string") {
       return t === menu;

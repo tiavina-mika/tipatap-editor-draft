@@ -10,7 +10,7 @@ import { useState, MouseEvent } from "react";
 import { useToggle } from "../../../../hooks/useToggle";
 import {
   defaultEditorToolbar,
-  showToolbarMenu,
+  showTextEditorToolbarMenu,
   textEditorIAFeatureOptions
 } from "../../../../utils/textEditor.utils";
 import Tabs from "../../../Tabs";
@@ -277,13 +277,13 @@ const MenuBar = ({
 
       <div className={className} css={classes.menu}>
         {/* ai button */}
-        {showToolbarMenu(toolbar, "ai") && (
+        {showTextEditorToolbarMenu(toolbar, "ai") && (
           <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
         )}
         {/* other options */}
         {menus.map(
           (menu, index) =>
-            showToolbarMenu(toolbar, menu) && (
+            showTextEditorToolbarMenu(toolbar, menu) && (
               <IconButton
                 key={menu.name + index}
                 onClick={menu.onClick}
@@ -304,7 +304,7 @@ const MenuBar = ({
         )}
 
         {/* mention */}
-        {showToolbarMenu(toolbar, "mention") && (
+        {showTextEditorToolbarMenu(toolbar, "mention") && (
           <IconButton
             onClick={() => {
               editor.chain().focus().insertContent("@").run();
@@ -315,7 +315,7 @@ const MenuBar = ({
         )}
 
         {/* youtube dialog */}
-        {showToolbarMenu(toolbar, "link") && (
+        {showTextEditorToolbarMenu(toolbar, "link") && (
           <LinkDialog
             editor={editor}
             open={openLinkDialog}
@@ -324,7 +324,7 @@ const MenuBar = ({
         )}
 
         {/* youtube dialog */}
-        {showToolbarMenu(toolbar, "youtube") && (
+        {showTextEditorToolbarMenu(toolbar, "youtube") && (
           <YoutubeDialog
             editor={editor}
             open={openYoutubeDialog}
@@ -333,10 +333,12 @@ const MenuBar = ({
         )}
 
         {/* color picker */}
-        {showToolbarMenu(toolbar, "color") && <ColorPicker editor={editor} />}
+        {showTextEditorToolbarMenu(toolbar, "color") && (
+          <ColorPicker editor={editor} />
+        )}
 
         {/* table menu to be opened */}
-        {showToolbarMenu(toolbar, "table") && (
+        {showTextEditorToolbarMenu(toolbar, "table") && (
           <TableMenuDialog
             editor={editor}
             anchorEl={tableAnchorEl}
@@ -345,7 +347,7 @@ const MenuBar = ({
         )}
 
         {/* table menu to be opened */}
-        {showToolbarMenu(toolbar, "heading") && (
+        {showTextEditorToolbarMenu(toolbar, "heading") && (
           <HeadingMenu
             editor={editor}
             anchorEl={headingAnchorEl}
