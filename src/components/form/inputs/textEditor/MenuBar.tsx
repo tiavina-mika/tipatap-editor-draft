@@ -23,7 +23,10 @@ import { IEditorToolbar } from "../../../../types/app.type";
 
 const classes = {
   menu: (theme: Theme) => ({
-    border: "1px solid " + theme.palette.grey[100]
+    border: "1px solid " + theme.palette.grey[100],
+    flex: 1,
+    alignSelf: "stretch",
+    width: "100%"
   }),
   button: (isActive: boolean, split: boolean) => (theme: Theme) => ({
     borderRadius: 0,
@@ -268,7 +271,7 @@ const MenuBar = ({
   ];
 
   return (
-    <div>
+    <div className="flexRow flex1 stretchSelf">
       {openIAFeatures && (
         <Tabs
           options={textEditorIAFeatureOptions}
