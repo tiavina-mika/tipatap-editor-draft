@@ -281,7 +281,9 @@ const MenuBar = ({
       )}
 
       <div className={className} css={classes.menu}>
-        <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
+        {diplayToolbar(toolbar, "ai") && (
+          <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
+        )}
         {/* other options */}
         {menus.map(
           (menu, index) =>

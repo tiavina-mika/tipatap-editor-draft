@@ -33,6 +33,7 @@ export enum EditorToolbarEnum {
   youtube = 'youtube',
   color = 'color',
   mention = 'mention',
+  ai = 'ai'
 }
 
 export type IEditorToolbar = `${EditorToolbarEnum}`;

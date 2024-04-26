@@ -45,6 +45,7 @@ import { WebrtcProvider } from "y-webrtc";
 import MenuBar from "./MenuBar";
 import getSuggestion from "./mention/suggestion";
 import {
+  IEditorToolbar,
   ISelectOption,
   ITextEditorCollaborationUser
 } from "../../../../types/app.type";
@@ -239,6 +240,7 @@ export type TextEditorProps = {
   value?: string;
   mentions?: ISelectOption[];
   menuClassName?: string;
+  toolbar?: IEditorToolbar[];
 } & Partial<EditorOptions>;
 
 const TextEditor = ({
@@ -250,13 +252,13 @@ const TextEditor = ({
   value,
   mentions,
   menuClassName,
+  toolbar,
   editable = true,
   ...editorOptions
 }: TextEditorProps) => {
   const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
   const theme = useTheme();
   const currentUser = getTextEditorInitialUser(theme); // simulate user from db
-
   const editor = useEditor({
     editable,
     content: value,
@@ -340,6 +342,7 @@ const TextEditor = ({
           selectedIAFeature={selectedIAFeature}
           className="stretchSelf flexRow"
           enableIA={!!getTextEditorSelectedText(editor)}
+          toolbar={toolbar}
         />
       )}
       {/* error */}

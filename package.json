@@ -34,6 +34,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "7.47.0",
+    "react-pick-color": "2.0.0",
     "tippy.js": "6.3.7",
     "typescript": "latest",
     "y-prosemirror": "1.2.1",

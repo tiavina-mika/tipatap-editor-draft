@@ -174,5 +174,6 @@ export const defaultEditorToolbar: IEditorToolbar[] = [
   "history",
   "youtube",
   "color",
-  "mention"
+  "mention",
+  "ai"
 ];
