@@ -117,6 +117,7 @@ const MenuBar = ({
   const handleOpenTableMenu = (event: MouseEvent<HTMLElement>) => {
     setTableAnchorEl(event.currentTarget);
   };
+
   const handleCloseTableMenu = () => {
     setTableAnchorEl(null);
   };

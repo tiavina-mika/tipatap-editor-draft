@@ -83,7 +83,7 @@ const Home = () => {
             placeholder="Provide as much information as possible. This field has only one limit, yours."
             mentions={mentions}
             menuClassName={classes.textEditorMenu}
-            toolbar={['link']}
+            toolbar={["color"]}
           />
         </Form>
       </div>

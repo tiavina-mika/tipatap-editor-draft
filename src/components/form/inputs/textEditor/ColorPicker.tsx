@@ -4,7 +4,7 @@
 import { jsx } from "@emotion/react";
 import { Editor } from "@tiptap/react";
 
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { ChangeEvent } from "react";
 
 const classes = {
@@ -43,9 +43,6 @@ const ColorPicker = ({ editor }: Props) => {
         value={editor.getAttributes("textStyle").color}
         css={classes.color}
       />
-      <Typography>
-        {editor.getAttributes("textStyle").color || "#000"}
-      </Typography>
     </Stack>
   );
 };
