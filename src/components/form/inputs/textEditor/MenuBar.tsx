@@ -9,10 +9,10 @@ import { useState, MouseEvent } from "react";
 
 import { useToggle } from "../../../../hooks/useToggle";
 import {
-  defaultEditorToolbar,
   showTextEditorToolbarMenu,
   textEditorIAFeatureOptions
 } from "../../../../utils/textEditor.utils";
+import { IEditorToolbar } from "../../../../types/app.type";
 import Tabs from "../../../Tabs";
 import AIButton from "./AIButton";
 import TableMenuDialog from "./TableMenuDialog";
@@ -20,7 +20,6 @@ import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
 import ColorPicker from "./ColorPicker";
 import YoutubeDialog from "./YoutubeDialog";
-import { IEditorToolbar } from "../../../../types/app.type";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -92,7 +91,7 @@ const MenuBar = ({
   onSelectIAFeature,
   className,
   enableIA,
-  toolbar = defaultEditorToolbar
+  toolbar
 }: Props) => {
   const theme = useTheme();
 
