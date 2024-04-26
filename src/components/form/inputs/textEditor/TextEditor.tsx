@@ -68,6 +68,12 @@ const classes = {
   })
 };
 
+/**
+ * future feature
+ * TODO: add this as a props
+ */
+const enableAI = true;
+
 export type TextEditorProps = {
   placeholder?: string;
   label?: string;
@@ -162,7 +168,8 @@ const TextEditor = ({
               onSelectIAFeature={handleSelectIAFeature(editor)}
               selectedIAFeature={selectedIAFeature}
               className="stretchSelf flexRow"
-              enableIA={!!getTextEditorSelectedText(editor)}
+              enableAI={enableAI}
+              openAIOptions={!!getTextEditorSelectedText(editor)}
               toolbar={toolbar}
             />
           )}

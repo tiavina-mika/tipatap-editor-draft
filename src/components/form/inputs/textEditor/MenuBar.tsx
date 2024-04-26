@@ -81,8 +81,9 @@ type Props = {
   className: string;
   selectedIAFeature: string;
   onSelectIAFeature: (feature: string) => void;
-  enableIA?: boolean;
+  enableAI?: boolean;
   toolbar?: IEditorToolbar[];
+  openAIOptions?: boolean;
 };
 
 const MenuBar = ({
@@ -90,8 +91,9 @@ const MenuBar = ({
   selectedIAFeature,
   onSelectIAFeature,
   className,
-  enableIA,
-  toolbar
+  enableAI,
+  toolbar,
+  openAIOptions
 }: Props) => {
   const theme = useTheme();
 
@@ -276,8 +278,8 @@ const MenuBar = ({
 
       <div className={className} css={classes.menu}>
         {/* ai button */}
-        {showTextEditorToolbarMenu(toolbar, "ai") && (
-          <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
+        {enableAI && showTextEditorToolbarMenu(toolbar, "ai") && (
+          <AIButton onClick={toggleIAFeatures} disabled={!openAIOptions} />
         )}
         {/* other options */}
         {menus.map(
