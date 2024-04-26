@@ -62,10 +62,11 @@ const classes = {
   input: (theme: Theme, editable = true) =>
     css({
       borderRadius: 6,
-      border: editable ? "1px solid " + theme.palette.grey[800] : "none",
+      borderTopLeftRadius: 0,
+      border: editable ? "1px solid " + theme.palette.grey[400] : "none",
       paddingLeft: editable ? 16 : 0,
       paddingRight: editable ? 16 : 0,
-      minHeight: 150,
+      minHeight: editable ? 150 : "initial",
       "& p.is-editor-empty:first-child::before": {
         content: "attr(data-placeholder)",
         float: "left",
@@ -78,21 +79,7 @@ const classes = {
         fontWeight: 400,
         lineHeight: "157.143%" /* 157.143% */
       }
-    }),
-  label: (theme: Theme) => ({
-    pointerEvents: "none" as const,
-    color: theme.palette.grey[800],
-    fontFamily: "Product Sans Regular",
-    fontSize: 10,
-    fontStyle: "normal",
-    fontWeight: 400,
-    lineHeight: 1,
-    backgroundColor: "#fff",
-    zIndex: 100,
-    padding: "4px 3px",
-    marginLeft: 12,
-    top: -8
-  })
+    })
 };
 
 const CustomMention = Mention.extend({
