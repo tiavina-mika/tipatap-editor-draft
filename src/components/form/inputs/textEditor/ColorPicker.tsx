@@ -4,7 +4,6 @@
 import { jsx } from "@emotion/react";
 import { Editor } from "@tiptap/react";
 
-import { Stack } from "@mui/material";
 import { ChangeEvent } from "react";
 
 const classes = {
@@ -36,14 +35,14 @@ const ColorPicker = ({ editor }: Props) => {
   };
 
   return (
-    <Stack direction="row" alignItems="center" alignSelf="stretch">
+    <div className="flexRow center stretchSelf">
       <input
         type="color"
         onInput={handleInput}
         value={editor.getAttributes("textStyle").color}
         css={classes.color}
       />
-    </Stack>
+    </div>
   );
 };
 
