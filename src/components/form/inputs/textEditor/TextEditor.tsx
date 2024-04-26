@@ -2,12 +2,11 @@
 /* @jsx jsx */
 /** @jsxImportSource @emotion/react */
 import { Theme } from "@emotion/react";
-import { useState } from "react";
-import "./textEditorStyles.scss";
+import { useState, SyntheticEvent } from "react";
 
 import { EditorContent, EditorOptions } from "@tiptap/react";
 import { cx } from "@emotion/css";
-import { FormHelperText, Typography } from "@mui/material";
+import { FormHelperText, Typography, Tab, Tabs } from "@mui/material";
 
 import MenuBar from "./MenuBar";
 import { IEditorToolbar, ISelectOption } from "../../../../types/app.type";
@@ -17,6 +16,8 @@ import {
   showTextEditorToolbarMenu
 } from "../../../../utils/textEditor.utils";
 import { useTextEditor } from "../../../../hooks/useTextEditor";
+
+import "./textEditorStyles.scss";
 
 const classes = {
   editorRoot: (theme: Theme) => ({
@@ -37,6 +38,33 @@ const classes = {
     padding: "4px 3px",
     marginLeft: 12,
     top: -8
+  }),
+  tabs: {
+    "& .MuiTabs-indicator": {
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "transparent"
+    },
+    "& .MuiTabs-indicatorSpan": {
+      maxWidth: 40,
+      width: "100%",
+      backgroundColor: "transparent"
+    }
+  },
+  tab: (theme: Theme) => ({
+    textTransform: "none" as const,
+    fontWeight: theme.typography.fontWeightRegular,
+    fontSize: theme.typography.pxToRem(15),
+    marginRight: theme.spacing(1),
+    "&.Mui-selected": {
+      color: "#000",
+      backgroundColor: "#ededed",
+      borderTopLeftRadius: 2,
+      borderTopRightRadius: 2
+    },
+    "&.Mui-focusVisible": {
+      backgroundColor: "rgba(100, 95, 228, 0.32)"
+    }
   })
 };
 
@@ -66,6 +94,8 @@ const TextEditor = ({
   ...editorOptions
 }: TextEditorProps) => {
   const [selectedIAFeature, setSelectedIAFeature] = useState<string>("");
+  const [tab, setTab] = useState<"editor" | "preview">("editor");
+
   const editor = useTextEditor({
     placeholder,
     onChange,
@@ -74,6 +104,9 @@ const TextEditor = ({
     editable,
     ...editorOptions
   });
+
+  const handleTabChange = (_: SyntheticEvent, value: "editor" | "preview") =>
+    setTab(value);
 
   if (!editable) {
     return <EditorContent editor={editor} className={className} />;
@@ -96,49 +129,60 @@ const TextEditor = ({
   };
 
   return (
-    <div
-      className={cx("positionRelative flexColumn tiptap", className)}
-      css={classes.editorRoot}
-    >
-      <div className="positionRelative stretchSelf">
-        {label && (
-          <Typography css={classes.label} className="positionAbsolute">
-            {label}
-          </Typography>
-        )}
-        {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
-        {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
-        <EditorContent editor={editor} css={classes.editor} />
-      </div>
-
-      {editor && (
-        <MenuBar
-          editor={editor}
-          onSelectIAFeature={handleSelectIAFeature(editor)}
-          selectedIAFeature={selectedIAFeature}
-          className="stretchSelf flexRow"
-          enableIA={!!getTextEditorSelectedText(editor)}
-          toolbar={toolbar}
-        />
-      )}
-      {/* error */}
-      {error && (
-        <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
-          {error}
-        </FormHelperText>
-      )}
-      {/* number of user online */}
-      {editor && showTextEditorToolbarMenu(toolbar, "mention") && (
-        <div css={{ paddingTop: 6, padddingBottom: 6 }}>
-          <Typography variant="body1">
-            {editor.storage.collaborationCursor?.users.length} user
-            {editor.storage.collaborationCursor?.users.length === 1
-              ? ""
-              : "s"}{" "}
-            online
-          </Typography>
+    <div>
+      {/* ----------- tabs ----------- */}
+      {label && <Typography css={classes.label}>{label}</Typography>}
+      <Tabs
+        value={tab}
+        onChange={handleTabChange}
+        aria-label="basic tabs example"
+        TabIndicatorProps={{
+          children: <span className="MuiTabs-indicatorSpan" />
+        }}
+        css={classes.tabs}
+      >
+        <Tab css={classes.tab} label="Editor" value="editor" />
+        <Tab css={classes.tab} label="Preview" value="preview" />
+      </Tabs>
+      <div
+        className={cx("positionRelative flexColumn tiptap", className)}
+        css={classes.editorRoot}
+      >
+        <div className="positionRelative stretchSelf">
+          {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
+          {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
+          <EditorContent editor={editor} css={classes.editor} />
         </div>
-      )}
+
+        {editor && (
+          <MenuBar
+            editor={editor}
+            onSelectIAFeature={handleSelectIAFeature(editor)}
+            selectedIAFeature={selectedIAFeature}
+            className="stretchSelf flexRow"
+            enableIA={!!getTextEditorSelectedText(editor)}
+            toolbar={toolbar}
+          />
+        )}
+        {/* error */}
+        {error && (
+          <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
+            {error}
+          </FormHelperText>
+        )}
+        {/* number of user online */}
+        {editor && showTextEditorToolbarMenu(toolbar, "mention") && (
+          <div css={{ paddingTop: 6, padddingBottom: 6 }}>
+            <Typography variant="body1">
+              {editor.storage.collaborationCursor?.users.length} user
+              {editor.storage.collaborationCursor?.users.length === 1
+                ? ""
+                : "s"}{" "}
+              online
+            </Typography>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
