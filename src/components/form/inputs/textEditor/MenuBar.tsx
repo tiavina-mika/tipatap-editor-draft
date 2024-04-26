@@ -10,6 +10,7 @@ import { useState, MouseEvent } from "react";
 import { useToggle } from "../../../../hooks/useToggle";
 import {
   defaultEditorToolbar,
+  showToolbarMenu,
   textEditorIAFeatureOptions
 } from "../../../../utils/textEditor.utils";
 import Tabs from "../../../Tabs";
@@ -83,17 +84,6 @@ type Props = {
   onSelectIAFeature: (feature: string) => void;
   enableIA?: boolean;
   toolbar?: IEditorToolbar[];
-};
-
-// menus to display
-const diplayToolbar = (toolbar: Props["toolbar"] = [], menu): boolean => {
-  return !!toolbar?.find((t: IEditorToolbar) => {
-    if (typeof menu === "string") {
-      return t === menu;
-    }
-    if (menu.default) return true;
-    return menu.group ? menu.group === t : menu.name === t;
-  });
 };
 
 const MenuBar = ({
@@ -287,13 +277,13 @@ const MenuBar = ({
 
       <div className={className} css={classes.menu}>
         {/* ai button */}
-        {diplayToolbar(toolbar, "ai") && (
+        {showToolbarMenu(toolbar, "ai") && (
           <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
         )}
         {/* other options */}
         {menus.map(
           (menu, index) =>
-            diplayToolbar(toolbar, menu) && (
+            showToolbarMenu(toolbar, menu) && (
               <IconButton
                 key={menu.name + index}
                 onClick={menu.onClick}
@@ -314,7 +304,7 @@ const MenuBar = ({
         )}
 
         {/* mention */}
-        {diplayToolbar(toolbar, "mention") && (
+        {showToolbarMenu(toolbar, "mention") && (
           <IconButton
             onClick={() => {
               editor.chain().focus().insertContent("@").run();
@@ -325,7 +315,7 @@ const MenuBar = ({
         )}
 
         {/* youtube dialog */}
-        {diplayToolbar(toolbar, "link") && (
+        {showToolbarMenu(toolbar, "link") && (
           <LinkDialog
             editor={editor}
             open={openLinkDialog}
@@ -334,7 +324,7 @@ const MenuBar = ({
         )}
 
         {/* youtube dialog */}
-        {diplayToolbar(toolbar, "youtube") && (
+        {showToolbarMenu(toolbar, "youtube") && (
           <YoutubeDialog
             editor={editor}
             open={openYoutubeDialog}
@@ -343,10 +333,10 @@ const MenuBar = ({
         )}
 
         {/* color picker */}
-        {diplayToolbar(toolbar, "color") && <ColorPicker editor={editor} />}
+        {showToolbarMenu(toolbar, "color") && <ColorPicker editor={editor} />}
 
         {/* table menu to be opened */}
-        {diplayToolbar(toolbar, "table") && (
+        {showToolbarMenu(toolbar, "table") && (
           <TableMenuDialog
             editor={editor}
             anchorEl={tableAnchorEl}
@@ -355,7 +345,7 @@ const MenuBar = ({
         )}
 
         {/* table menu to be opened */}
-        {diplayToolbar(toolbar, "heading") && (
+        {showToolbarMenu(toolbar, "heading") && (
           <HeadingMenu
             editor={editor}
             anchorEl={headingAnchorEl}
