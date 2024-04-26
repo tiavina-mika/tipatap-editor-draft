@@ -85,6 +85,7 @@ type Props = {
   toolbar?: IEditorToolbar[];
 };
 
+// menus to display
 const diplayToolbar = (toolbar: Props["toolbar"] = [], menu): boolean => {
   return !!toolbar?.find((t: IEditorToolbar) => {
     if (typeof menu === "string") {
