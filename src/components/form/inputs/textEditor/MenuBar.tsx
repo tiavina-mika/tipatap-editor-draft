@@ -5,7 +5,7 @@ import { Theme, jsx } from "@emotion/react";
 import { css } from "@emotion/css";
 import { IconButton, useTheme } from "@mui/material";
 import { Editor } from "@tiptap/react";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useCallback, useMemo } from "react";
 
 import { useToggle } from "../../../../hooks/useToggle";
 import {
@@ -105,17 +105,21 @@ const MenuBar = ({
     null
   );
 
-  const handleOpenTableMenu = (event: MouseEvent<HTMLElement>) => {
+  const handleOpenTableMenu = useCallback((event: MouseEvent<HTMLElement>) => {
     setTableAnchorEl(event.currentTarget);
-  };
+  }, []);
 
   const handleCloseTableMenu = () => {
     setTableAnchorEl(null);
   };
 
-  const handleOpenHeadingMenu = (event: MouseEvent<HTMLElement>) => {
-    setHeadingAnchorEl(event.currentTarget);
-  };
+  const handleOpenHeadingMenu = useCallback(
+    (event: MouseEvent<HTMLElement>) => {
+      setHeadingAnchorEl(event.currentTarget);
+    },
+    []
+  );
+
   const handleCloseHeadingMenu = () => {
     setHeadingAnchorEl(null);
   };
@@ -125,143 +129,152 @@ const MenuBar = ({
     toggleIAFeatures();
   };
 
-  const menus = [
-    {
-      name: "heading",
-      icon: "title",
-      onClick: handleOpenHeadingMenu,
-      isActive:
-        editor.isActive("heading", { level: 1 }) ||
-        editor.isActive("heading", { level: 2 }) ||
-        editor.isActive("heading", { level: 3 }) ||
-        editor.isActive("heading", { level: 4 }) ||
-        editor.isActive("heading", { level: 5 }) ||
-        editor.isActive("heading", { level: 6 }),
-      disabled: false,
-      split: true
-    },
-    {
-      name: "bold",
-      onClick: () => editor.chain().focus().toggleBold().run(),
-      disabled: !editor.can().chain().focus().toggleBold().run()
-    },
-    {
-      name: "italic",
-      onClick: () => editor.chain().focus().toggleItalic().run(),
-      disabled: !editor.can().chain().focus().toggleItalic().run()
-    },
-    {
-      name: "strike",
-      onClick: () => editor.chain().focus().toggleStrike().run(),
-      disabled: !editor.can().chain().focus().toggleStrike().run()
-    },
-    {
-      name: "underline",
-      onClick: () => editor.chain().focus().toggleUnderline().run(),
-      disabled: !editor.can().chain().focus().toggleUnderline().run()
-    },
-    {
-      name: "link",
-      onClick: toggleLinkDialog,
-      disabled: false,
-      split: true
-    },
-    // order
-    {
-      name: "bulletList",
-      icon: "bullet-list",
-      onClick: () => editor.chain().focus().toggleBulletList().run(),
-      disabled: !editor.can().chain().focus().toggleBulletList().run()
-    },
-    {
-      name: "orderedList",
-      icon: "ordered-list",
-      onClick: () => editor.chain().focus().toggleOrderedList().run(),
-      disabled: !editor.can().chain().focus().toggleOrderedList().run(),
-      split: true
-    },
-    // alignment
-    {
-      name: "align-left",
-      icon: "align-left",
-      onClick: () => editor.chain().focus().setTextAlign("left").run(),
-      disabled: false,
-      active: { textAlign: "left" },
-      group: "align"
-    },
-    {
-      name: "align-center",
-      icon: "align-center",
-      onClick: () => editor.chain().focus().setTextAlign("center").run(),
-      disabled: false,
-      active: { textAlign: "center" },
-      group: "align"
-    },
-    {
-      name: "align-right",
-      icon: "align-right",
-      onClick: () => editor.chain().focus().setTextAlign("right").run(),
-      disabled: false,
-      active: { textAlign: "right" },
-      group: "align"
-    },
-    {
-      name: "align-justify",
-      icon: "align-justify",
-      onClick: () => editor.chain().focus().setTextAlign("justify").run(),
-      disabled: false,
-      active: { textAlign: "justify" },
-      split: true,
-      group: "align"
-    },
-    {
-      name: "blockquote",
-      icon: "quote",
-      onClick: () => editor.chain().focus().toggleBlockquote().run(),
-      disabled: false
-    },
-    {
-      name: "codeBlock",
-      icon: "code",
-      onClick: () => editor.chain().focus().toggleCodeBlock().run(),
-      disabled: false,
-      split: true
-    },
-    {
-      name: "table",
-      onClick: () => {
-        editor
-          .chain()
-          .focus()
-          .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
-          .run();
+  const menus = useMemo(
+    () => [
+      {
+        name: "heading",
+        icon: "title",
+        onClick: handleOpenHeadingMenu,
+        isActive:
+          editor.isActive("heading", { level: 1 }) ||
+          editor.isActive("heading", { level: 2 }) ||
+          editor.isActive("heading", { level: 3 }) ||
+          editor.isActive("heading", { level: 4 }) ||
+          editor.isActive("heading", { level: 5 }) ||
+          editor.isActive("heading", { level: 6 }),
+        disabled: false,
+        split: true
       },
-      onMouseEnter: (event: MouseEvent<HTMLElement>) => {
-        handleOpenTableMenu(event);
+      {
+        name: "bold",
+        onClick: () => editor.chain().focus().toggleBold().run(),
+        disabled: !editor.can().chain().focus().toggleBold().run()
       },
-      disabled: false,
-      split: true
-    },
-    {
-      name: "youtube",
-      onClick: toggleYoutubeDialog,
-      disabled: false,
-      split: true
-    },
-    {
-      name: "undo",
-      onClick: () => editor.chain().focus().undo().run(),
-      disabled: !editor.can().undo(),
-      default: true // always displayed
-    },
-    {
-      name: "redo",
-      onClick: () => editor.chain().focus().redo().run(),
-      disabled: !editor.can().redo(),
-      split: true,
-      default: true // always displayed
-    }
-  ];
+      {
+        name: "italic",
+        onClick: () => editor.chain().focus().toggleItalic().run(),
+        disabled: !editor.can().chain().focus().toggleItalic().run()
+      },
+      {
+        name: "strike",
+        onClick: () => editor.chain().focus().toggleStrike().run(),
+        disabled: !editor.can().chain().focus().toggleStrike().run()
+      },
+      {
+        name: "underline",
+        onClick: () => editor.chain().focus().toggleUnderline().run(),
+        disabled: !editor.can().chain().focus().toggleUnderline().run()
+      },
+      {
+        name: "link",
+        onClick: toggleLinkDialog,
+        disabled: false,
+        split: true
+      },
+      // order
+      {
+        name: "bulletList",
+        icon: "bullet-list",
+        onClick: () => editor.chain().focus().toggleBulletList().run(),
+        disabled: !editor.can().chain().focus().toggleBulletList().run()
+      },
+      {
+        name: "orderedList",
+        icon: "ordered-list",
+        onClick: () => editor.chain().focus().toggleOrderedList().run(),
+        disabled: !editor.can().chain().focus().toggleOrderedList().run(),
+        split: true
+      },
+      // alignment
+      {
+        name: "align-left",
+        icon: "align-left",
+        onClick: () => editor.chain().focus().setTextAlign("left").run(),
+        disabled: false,
+        active: { textAlign: "left" },
+        group: "align"
+      },
+      {
+        name: "align-center",
+        icon: "align-center",
+        onClick: () => editor.chain().focus().setTextAlign("center").run(),
+        disabled: false,
+        active: { textAlign: "center" },
+        group: "align"
+      },
+      {
+        name: "align-right",
+        icon: "align-right",
+        onClick: () => editor.chain().focus().setTextAlign("right").run(),
+        disabled: false,
+        active: { textAlign: "right" },
+        group: "align"
+      },
+      {
+        name: "align-justify",
+        icon: "align-justify",
+        onClick: () => editor.chain().focus().setTextAlign("justify").run(),
+        disabled: false,
+        active: { textAlign: "justify" },
+        split: true,
+        group: "align"
+      },
+      {
+        name: "blockquote",
+        icon: "quote",
+        onClick: () => editor.chain().focus().toggleBlockquote().run(),
+        disabled: false
+      },
+      {
+        name: "codeBlock",
+        icon: "code",
+        onClick: () => editor.chain().focus().toggleCodeBlock().run(),
+        disabled: false,
+        split: true
+      },
+      {
+        name: "table",
+        onClick: () => {
+          editor
+            .chain()
+            .focus()
+            .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
+            .run();
+        },
+        onMouseEnter: (event: MouseEvent<HTMLElement>) => {
+          handleOpenTableMenu(event);
+        },
+        disabled: false,
+        split: true
+      },
+      {
+        name: "youtube",
+        onClick: toggleYoutubeDialog,
+        disabled: false,
+        split: true
+      },
+      {
+        name: "undo",
+        onClick: () => editor.chain().focus().undo().run(),
+        disabled: !editor.can().undo(),
+        default: true // always displayed
+      },
+      {
+        name: "redo",
+        onClick: () => editor.chain().focus().redo().run(),
+        disabled: !editor.can().redo(),
+        split: true,
+        default: true // always displayed
+      }
+    ],
+    [
+      editor,
+      toggleLinkDialog,
+      toggleYoutubeDialog,
+      handleOpenTableMenu,
+      handleOpenHeadingMenu
+    ]
+  );
 
   return (
     <div className="flexRow flex1 stretchSelf">
