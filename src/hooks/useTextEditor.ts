@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Theme } from "@emotion/react";
 
 import {
@@ -202,6 +203,7 @@ export type UseTextEditorInputProps = {
   onChange?: (value: string) => void;
   value?: string;
   mentions?: ISelectOption[];
+  tab: "editor" | "preview";
 } & Partial<EditorOptions>;
 
 export const useTextEditor = ({
@@ -209,6 +211,7 @@ export const useTextEditor = ({
   onChange,
   value,
   mentions,
+  tab,
   editable = true,
   ...editorOptions
 }: UseTextEditorInputProps) => {
@@ -216,13 +219,7 @@ export const useTextEditor = ({
   const currentUser = getTextEditorInitialUser(theme); // simulate user from db
 
   const editor = useEditor({
-    editable,
     content: value,
-    editorProps: {
-      attributes: {
-        class: classes.input(theme, editable)
-      }
-    },
     extensions: [
       Placeholder.configure({
         placeholder
@@ -254,6 +251,43 @@ export const useTextEditor = ({
     },
     ...editorOptions
   });
+
+  // set initial value for edition even if it's already set (below)
+  useEffect(() => {
+    if (!(editor && value)) return;
+    editor.commands.setContent(value);
+    // !important: to avoid update for each taping, the value should be excluded from the dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editor]);
+
+  /**
+   * change the editable state of the editor on the fly
+   * for every tab change
+   */
+  useEffect(() => {
+    // preview tab or not editable
+    if (!editable) {
+      editor?.setOptions({
+        editable: false,
+        editorProps: {
+          attributes: {
+            class: classes.input(theme, false)
+          }
+        }
+      });
+      return;
+    }
+
+    // editor tab
+    editor?.setOptions({
+      editable: tab === "editor",
+      editorProps: {
+        attributes: {
+          class: classes.input(theme, tab === "editor")
+        }
+      }
+    });
+  }, [editor, tab, editable, theme]);
 
   return editor;
 };

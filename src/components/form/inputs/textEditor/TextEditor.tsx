@@ -102,6 +102,7 @@ const TextEditor = ({
     value,
     mentions,
     editable,
+    tab,
     ...editorOptions
   });
 
@@ -144,45 +145,49 @@ const TextEditor = ({
         <Tab css={classes.tab} label="Editor" value="editor" />
         <Tab css={classes.tab} label="Preview" value="preview" />
       </Tabs>
-      <div
-        className={cx("positionRelative flexColumn tiptap", className)}
-        css={classes.editorRoot}
-      >
-        <div className="positionRelative stretchSelf">
-          {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
-          {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
-          <EditorContent editor={editor} css={classes.editor} />
-        </div>
-
-        {editor && (
-          <MenuBar
-            editor={editor}
-            onSelectIAFeature={handleSelectIAFeature(editor)}
-            selectedIAFeature={selectedIAFeature}
-            className="stretchSelf flexRow"
-            enableIA={!!getTextEditorSelectedText(editor)}
-            toolbar={toolbar}
-          />
-        )}
-        {/* error */}
-        {error && (
-          <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
-            {error}
-          </FormHelperText>
-        )}
-        {/* number of user online */}
-        {editor && showTextEditorToolbarMenu(toolbar, "mention") && (
-          <div css={{ paddingTop: 6, padddingBottom: 6 }}>
-            <Typography variant="body1">
-              {editor.storage.collaborationCursor?.users.length} user
-              {editor.storage.collaborationCursor?.users.length === 1
-                ? ""
-                : "s"}{" "}
-              online
-            </Typography>
+      {tab === "editor" ? (
+        <div
+          className={cx("positionRelative flexColumn tiptap", className)}
+          css={classes.editorRoot}
+        >
+          <div className="positionRelative stretchSelf">
+            {/* {editor && <FloatingMenu>This is the floating menu</FloatingMenu>}
+              {editor && <BubbleMenu>This is the bubble menu</BubbleMenu>} */}
+            <EditorContent editor={editor} css={classes.editor} />
           </div>
-        )}
-      </div>
+
+          {editor && (
+            <MenuBar
+              editor={editor}
+              onSelectIAFeature={handleSelectIAFeature(editor)}
+              selectedIAFeature={selectedIAFeature}
+              className="stretchSelf flexRow"
+              enableIA={!!getTextEditorSelectedText(editor)}
+              toolbar={toolbar}
+            />
+          )}
+          {/* error */}
+          {error && (
+            <FormHelperText error css={{ paddingTop: 4, paddingBottom: 4 }}>
+              {error}
+            </FormHelperText>
+          )}
+          {/* number of user online */}
+          {editor && showTextEditorToolbarMenu(toolbar, "mention") && (
+            <div css={{ paddingTop: 6, padddingBottom: 6 }}>
+              <Typography variant="body1">
+                {editor.storage.collaborationCursor?.users.length} user
+                {editor.storage.collaborationCursor?.users.length === 1
+                  ? ""
+                  : "s"}{" "}
+                online
+              </Typography>
+            </div>
+          )}
+        </div>
+      ) : (
+        <EditorContent editor={editor} className={className} />
+      )}
     </div>
   );
 };
