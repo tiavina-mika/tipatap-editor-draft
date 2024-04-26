@@ -42,7 +42,7 @@ const Footer = () => {
             <Link
               href={link.url}
               variant="h4"
-              css={{ color: "#fff", textDecoration: "underline" }}
+              css={{ color: "#fff", textDecoration: "underline", fontSize: 14 }}
             >
               {link.label}
             </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
         ))}
       </Stack>
       <div className="stretchSelf flexCenter flex1">
-        <Typography variant="h4" className="grey100">
+        <Typography variant="h4" className="grey100" css={{ fontSize: 14 }}>
           By Tiavina Michael Ralainirina
         </Typography>
       </div>
