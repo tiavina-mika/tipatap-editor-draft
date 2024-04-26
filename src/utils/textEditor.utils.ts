@@ -2,7 +2,11 @@ import { Editor } from "@tiptap/react";
 import { DOMSerializer } from "prosemirror-model";
 import { Theme } from "@emotion/react";
 
-import { ISelectOption, ITextEditorCollaborationUser } from "../types/app.type";
+import {
+  IEditorToolbar,
+  ISelectOption,
+  ITextEditorCollaborationUser
+} from "../types/app.type";
 
 export const textEditorIAFeatureOptions: ISelectOption[] = [
   {
@@ -151,3 +155,24 @@ export const getTextEditorInitialUser = (
     color: getRandomElement(colors)
   };
 };
+
+export const defaultEditorToolbar: IEditorToolbar[] = [
+  "heading",
+  "bold",
+  "italic",
+  "strike",
+  "link",
+  "underline",
+  "image",
+  "code",
+  "orderedList",
+  "bulletList",
+  "align",
+  "codeBlock",
+  "blockquote",
+  "table",
+  "history",
+  "youtube",
+  "color",
+  "mention"
+];

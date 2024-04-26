@@ -8,7 +8,10 @@ import { Editor } from "@tiptap/react";
 import { useState, MouseEvent } from "react";
 
 import { useToggle } from "../../../../hooks/useToggle";
-import { textEditorIAFeatureOptions } from "../../../../utils/textEditor.utils";
+import {
+  defaultEditorToolbar,
+  textEditorIAFeatureOptions
+} from "../../../../utils/textEditor.utils";
 import Tabs from "../../../Tabs";
 import AIButton from "./AIButton";
 import TableMenuDialog from "./TableMenuDialog";
@@ -16,6 +19,7 @@ import LinkDialog from "./LinkDialog";
 import HeadingMenu from "./HeadingMenu";
 import ColorPicker from "./ColorPicker";
 import YoutubeDialog from "./YoutubeDialog";
+import { IEditorToolbar } from "../../../../types/app.type";
 
 const classes = {
   menu: (theme: Theme) => ({
@@ -75,6 +79,17 @@ type Props = {
   selectedIAFeature: string;
   onSelectIAFeature: (feature: string) => void;
   enableIA?: boolean;
+  toolbar?: IEditorToolbar[];
+};
+
+const diplayToolbar = (toolbar: Props["toolbar"] = [], menu): boolean => {
+  return !!toolbar?.find((t: IEditorToolbar) => {
+    if (typeof menu === "string") {
+      return t === menu;
+    }
+    if (menu.default) return true;
+    return menu.group ? menu.group === t : menu.name === t;
+  });
 };
 
 const MenuBar = ({
@@ -82,7 +97,8 @@ const MenuBar = ({
   selectedIAFeature,
   onSelectIAFeature,
   className,
-  enableIA
+  enableIA,
+  toolbar = defaultEditorToolbar
 }: Props) => {
   const theme = useTheme();
 
@@ -174,21 +190,24 @@ const MenuBar = ({
       icon: "align-left",
       onClick: () => editor.chain().focus().setTextAlign("left").run(),
       disabled: false,
-      active: { textAlign: "left" }
+      active: { textAlign: "left" },
+      group: "align"
     },
     {
       name: "align-center",
       icon: "align-center",
       onClick: () => editor.chain().focus().setTextAlign("center").run(),
       disabled: false,
-      active: { textAlign: "center" }
+      active: { textAlign: "center" },
+      group: "align"
     },
     {
       name: "align-right",
       icon: "align-right",
       onClick: () => editor.chain().focus().setTextAlign("right").run(),
       disabled: false,
-      active: { textAlign: "right" }
+      active: { textAlign: "right" },
+      group: "align"
     },
     {
       name: "align-justify",
@@ -196,7 +215,8 @@ const MenuBar = ({
       onClick: () => editor.chain().focus().setTextAlign("justify").run(),
       disabled: false,
       active: { textAlign: "justify" },
-      split: true
+      split: true,
+      group: "align"
     },
     {
       name: "blockquote",
@@ -235,13 +255,15 @@ const MenuBar = ({
     {
       name: "undo",
       onClick: () => editor.chain().focus().undo().run(),
-      disabled: !editor.can().undo()
+      disabled: !editor.can().undo(),
+      default: true // always displayed
     },
     {
       name: "redo",
       onClick: () => editor.chain().focus().redo().run(),
       disabled: !editor.can().redo(),
-      split: true
+      split: true,
+      default: true // always displayed
     }
   ];
 
@@ -261,60 +283,77 @@ const MenuBar = ({
       <div className={className} css={classes.menu}>
         <AIButton onClick={toggleIAFeatures} disabled={!enableIA} />
         {/* other options */}
-        {menus.map((menu, index) => (
-          <IconButton
-            key={menu.name + index}
-            onClick={menu.onClick}
-            onMouseEnter={menu.onMouseEnter}
-            disabled={menu.disabled}
-            css={classes.button(
-              // the oreder is important
-              editor.isActive(menu.isActive || menu.active || menu.name),
-              menu.split
-            )}
-          >
-            <img alt={menu.name} src={`/icons/${menu.icon || menu.name}.svg`} />
-          </IconButton>
-        ))}
+        {menus.map(
+          (menu, index) =>
+            diplayToolbar(toolbar, menu) && (
+              <IconButton
+                key={menu.name + index}
+                onClick={menu.onClick}
+                onMouseEnter={menu.onMouseEnter}
+                disabled={menu.disabled}
+                css={classes.button(
+                  // the oreder is important
+                  editor.isActive(menu.isActive || menu.active || menu.name),
+                  menu.split
+                )}
+              >
+                <img
+                  alt={menu.name}
+                  src={`/icons/${menu.icon || menu.name}.svg`}
+                />
+              </IconButton>
+            )
+        )}
 
         {/* mention */}
-        <IconButton
-          onClick={() => {
-            editor.chain().focus().insertContent("@").run();
-          }}
-        >
-          <img alt="mention" src="/icons/mention.svg" />
-        </IconButton>
+        {diplayToolbar(toolbar, "mention") && (
+          <IconButton
+            onClick={() => {
+              editor.chain().focus().insertContent("@").run();
+            }}
+          >
+            <img alt="mention" src="/icons/mention.svg" />
+          </IconButton>
+        )}
 
         {/* youtube dialog */}
-        <LinkDialog
-          editor={editor}
-          open={openLinkDialog}
-          onClose={toggleLinkDialog}
-        />
+        {diplayToolbar(toolbar, "link") && (
+          <LinkDialog
+            editor={editor}
+            open={openLinkDialog}
+            onClose={toggleLinkDialog}
+          />
+        )}
 
         {/* youtube dialog */}
-        <YoutubeDialog
-          editor={editor}
-          open={openYoutubeDialog}
-          onClose={toggleYoutubeDialog}
-        />
+        {diplayToolbar(toolbar, "youtube") && (
+          <YoutubeDialog
+            editor={editor}
+            open={openYoutubeDialog}
+            onClose={toggleYoutubeDialog}
+          />
+        )}
+
         {/* color picker */}
-        <ColorPicker editor={editor} />
+        {diplayToolbar(toolbar, "color") && <ColorPicker editor={editor} />}
 
         {/* table menu to be opened */}
-        <TableMenuDialog
-          editor={editor}
-          anchorEl={tableAnchorEl}
-          onClose={handleCloseTableMenu}
-        />
+        {diplayToolbar(toolbar, "table") && (
+          <TableMenuDialog
+            editor={editor}
+            anchorEl={tableAnchorEl}
+            onClose={handleCloseTableMenu}
+          />
+        )}
 
         {/* table menu to be opened */}
-        <HeadingMenu
-          editor={editor}
-          anchorEl={headingAnchorEl}
-          onClose={handleCloseHeadingMenu}
-        />
+        {diplayToolbar(toolbar, "heading") && (
+          <HeadingMenu
+            editor={editor}
+            anchorEl={headingAnchorEl}
+            onClose={handleCloseHeadingMenu}
+          />
+        )}
       </div>
     </div>
   );
