@@ -82,6 +82,7 @@ export type TextEditorProps = {
   className?: string;
   value?: string;
   mentions?: ISelectOption[];
+  user?: ISelectOption;
   menuClassName?: string;
   toolbar?: IEditorToolbar[];
 } & Partial<EditorOptions>;
@@ -94,6 +95,7 @@ const TextEditor = ({
   className,
   value,
   mentions,
+  user,
   menuClassName,
   toolbar = defaultEditorToolbar,
   editable = true,

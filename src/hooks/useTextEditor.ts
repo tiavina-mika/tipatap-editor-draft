@@ -36,7 +36,6 @@ import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
 import { WebrtcProvider } from "y-webrtc";
 import { ISelectOption, ITextEditorCollaborationUser } from "../types/app.type";
-import { getTextEditorInitialUser } from "../utils/textEditor.utils";
 import getSuggestion from "../components/form/inputs/textEditor/mention/suggestion";
 
 const classes = {
@@ -203,6 +202,7 @@ export type UseTextEditorInputProps = {
   onChange?: (value: string) => void;
   value?: string;
   mentions?: ISelectOption[];
+  user?: ISelectOption;
   tab: "editor" | "preview";
 } & Partial<EditorOptions>;
 
@@ -212,11 +212,11 @@ export const useTextEditor = ({
   value,
   mentions,
   tab,
+  user,
   editable = true,
   ...editorOptions
 }: UseTextEditorInputProps) => {
   const theme = useTheme();
-  const currentUser = getTextEditorInitialUser(theme); // simulate user from db
 
   const editor = useEditor({
     content: value,
@@ -238,7 +238,7 @@ export const useTextEditor = ({
       // colaboration
       CustomCollaborationCursor.configure({
         provider,
-        user: currentUser
+        user
       }),
       Collaboration.configure({
         document: ydoc

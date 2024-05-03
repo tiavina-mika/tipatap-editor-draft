@@ -9,6 +9,8 @@ import { z } from "zod";
 import Form from "../components/form/Form";
 import { css } from "@emotion/css";
 import Footer from "../components/Footer";
+import { getTextEditorInitialUser } from "../utils/textEditor.utils";
+import { useTheme } from "@mui/material";
 
 const mentions = [
   { label: "Lea Thompson", value: "xxxx1" },
@@ -53,6 +55,10 @@ export const problemSchema = z.object({
 type IProblemInput = z.infer<typeof problemSchema>;
 
 const Home = () => {
+  const theme = useTheme();
+
+  const currentUser = getTextEditorInitialUser(theme); // simulate user from db
+
   const form = useForm<IProblemInput>({
     resolver: zodResolver(problemSchema),
     defaultValues: {
@@ -83,6 +89,7 @@ const Home = () => {
             placeholder="Provide as much information as possible. This field has only one limit, yours."
             mentions={mentions}
             menuClassName={classes.textEditorMenu}
+            user={currentUser}
           />
         </Form>
       </div>
